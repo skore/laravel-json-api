@@ -65,20 +65,19 @@ trait RelationshipsWithIncludes
     /**
      * Process a model relation attaching to its model additional attributes.
      *
-     * @param \Illuminate\Database\Eloquent\Model $relation
+     * @param \Illuminate\Database\Eloquent\Model $model
      * @return array
      */
-    protected function processModelRelation(Model $relation)
+    protected function processModelRelation(Model $model)
     {
-        if (count(array_filter($relation->getRelations())) > 0) {
-            $this->attachRelations($relation);
-            $relation->setRelations([]);
+        $modelResource = new JsonApiResource($model, $this->authorize);
+
+        $this->with['included'][] = $modelResource;
+
+        if (Arr::has($modelResource->with, 'included')) {
+            $this->with['included'][] = $modelResource->with['included'];
         }
 
-        $relationResource = new JsonApiResource($relation, $this->authorize);
-
-        $this->with['included'][] = $relationResource;
-
-        return $relationResource->getResourceIdentifier();
+        return $modelResource->getResourceIdentifier();
     }
 }
