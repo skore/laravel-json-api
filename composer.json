@@ -23,6 +23,10 @@
         "orchestra/testbench": "~3.6.0|~3.7.0|~3.8.0",
         "ext-json": "*"
     },
+    "suggest": {
+        "spatie/laravel-query-builder": "Allows to include data on your API responses following the JSON:API",
+        "spatie/laravel-json-api-paginate": "Change a little bit the default pagination params of Laravel for the JSON:API ones"
+    },
     "autoload": {
         "psr-4": {
             "SkoreLabs\\JsonApi\\": "src"
