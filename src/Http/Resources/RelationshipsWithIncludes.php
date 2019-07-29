@@ -3,51 +3,50 @@
 namespace SkoreLabs\JsonApi\Http\Resources;
 
 use Illuminate\Database\Eloquent\{Model, Collection};
-use Illuminate\Support\{Str, Collection as SupportCollection};
+use Illuminate\Pagination\LengthAwarePaginator;
 
+/**
+ * @property mixed $resource
+ */
 trait RelationshipsWithIncludes
 {
     /**
-     * Resource attached relationships.
+     * Included relations on the resource.
      *
      * @var array
      */
-    public $relationships = [];
+    protected $relationships;
 
     /**
-     * Process the relation attaching to the resource response.
+     * Attach with the resource model relationships.
      *
-     * @param string $relation
-     * @param \Illuminate\Database\Eloquent\Model $model
      * @return void
      */
-    protected function processRelation(Model $model)
+    protected function withRelationships()
     {
-        $relationType = Str::lower(class_basename($model));
-
-        $this->with['included'] = [
-            'id' => (string) $model->getKey(),
-            'type' => $relationType,
-            'attributes' => array_filter($model->toArray(), function ($key) {
-                return ! Str::endsWith($key, '_id') && $key !== 'id';
-            }, ARRAY_FILTER_USE_KEY),
-        ];
-        
-        return [
-            $model->getKeyName() => (string) $model->getKey(),
-            'type' => $relationType,
-        ];
+        if ($this->resource instanceof LengthAwarePaginator) {
+            $this->resource->getCollection()->map(function (Model $model) {
+                $this->attachRelations($model, true);
+            });
+        } else if ($this->resource instanceof Model) {
+            $this->attachRelations($this->resource);
+        }
     }
 
     /**
-     * Get the resource model relationships.
+     * Undocumented function
      *
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param bool $collects
      * @return void
      */
-    protected function getRelations()
+    protected function attachRelations(Model $model)
     {
-        foreach ($this->resource->getRelations() as $relation => $relationObj) {
+        $relations = array_filter($model->getRelations());
+
+        foreach ($relations as $relation => $relationObj) {
             if ($relationObj instanceof Collection) {
+                /** @var \Illuminate\Database\Eloquent\Model $relationModel */
                 foreach ($relationObj->all() as $relationModel) {
                     $this->relationships[$relation]['data'][] = $this->processModelRelation(
                         $relationModel
@@ -60,17 +59,26 @@ trait RelationshipsWithIncludes
                     $relationObj
                 );
             }
-
-            $this->resource->unsetRelation($relation);
         }
     }
 
-    protected function uniqueIncludes()
+    /**
+     * Process a model relation attaching to its model additional attributes.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $relation
+     * @return array
+     */
+    protected function processModelRelation(Model $relation)
     {
-        $filtered = SupportCollection::make($this->included)->unique(function ($item) {
-            return $item['id'] . $item['type'];
-        });
+        if (count(array_filter($relation->getRelations())) > 0) {
+            $this->attachRelations($relation);
+            $relation->setRelations([]);
+        }
 
-        $this->included = $filtered->values()->all();
+        $relationResource = new JsonApiResource($relation, $this->authorize);
+
+        $this->with['included'][] = $relationResource;
+
+        return $relationResource->getResourceIdentifier();
     }
 }

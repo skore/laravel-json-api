@@ -4,12 +4,11 @@ namespace SkoreLabs\JsonApi\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\MissingValue;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class JsonApiResource extends JsonResource
 {
-    use RelationshipsWithIncludes, ConditionallyLoadsAttributes;
+    use Authorizable, RelationshipsWithIncludes, ConditionallyLoadsAttributes;
 
     /**
      * The resource instance.
@@ -19,43 +18,24 @@ class JsonApiResource extends JsonResource
     public $resource;
 
     /**
-     * Specify if show any pivot table data.
+     * Create a new resource instance.
      *
-     * @var bool
-     */
-    protected $showPivot = false;
-
-    /**
-     * Determine whether authorize to view this resource.
-     *
-     * @var bool
-     */
-    protected $authorize;
-
-    /**
-     * Authorize to view this resource.
-     *
-     * @return bool
-     */
-    protected function authorize()
-    {
-        $strClass = get_class($this->resource);
-
-        return $this->authorize
-            ?: is_string($strClass)
-            ?: Auth::user()->can('viewAny', $strClass)
-            ?: Auth::user()->can('view', $this->resource);
-    }
-
-    /**
-     * Set authorization bypassing automatic authorization.
-     *
-     * @param bool $value
+     * @param  mixed  $resource
+     * @param bool $authorize
      * @return void
      */
-    public function setAuthorize($value = true)
+    public function __construct($resource, $authorize = false)
     {
-        $this->authorize = $value;
+        if (gettype($authorize) === 'boolean') {
+            $this->authorize = $authorize;
+        }
+
+        if (! $this->authorize($resource)) {
+            $this->resource = new MissingValue();
+        } else {
+            $this->resource = $resource;
+            $this->withRelationships();
+        }
     }
 
     /**
@@ -66,43 +46,53 @@ class JsonApiResource extends JsonResource
      */
     public function toArray($request)
     {
-        if ($this->authorize() === false) {
-            return new MissingValue();
+        if ($this->evaluateResponse()) {
+            return [
+                $this->merge($this->getResourceIdentifier()),
+                'attributes' => $this->getAttributes(),
+                'relationships' => $this->when(
+                    $this->relationships, $this->relationships
+                ),
+            ];
         }
 
-        if (is_null($this->resource)) {
-            return [];
-        }
-
-        return (is_array($this->resource))
-            ? $this->resource
-            : $this->formatResponse();
+        return $this->resource;
     }
 
     /**
-     * Format model response to array.
+     * Test response if valid for formatting.
+     *
+     * @return bool
+     */
+    protected function evaluateResponse()
+    {
+        return ! is_array($this->resource)
+            && ! is_null($this->resource)
+            && ! $this->resource instanceof MissingValue;
+    }
+
+    /**
+     * Get object identifier "id" and "type".
      *
      * @return array
      */
-    protected function formatResponse()
+    public function getResourceIdentifier()
     {
-        $hiddenAttrs = [
-            $this->resource->getKeyName(),
-        ];
-
-        if (! $this->showPivot) {
-            $hiddenAttrs[] = 'pivot';
-        }
-
-        $this->resource->addHidden($hiddenAttrs);
-
         return [
             $this->resource->getKeyName() => (string) $this->resource->getKey(),
             'type' => Str::lower(class_basename($this->resource)),
-            'attributes' => $this->resource->toArray(),
-            'relationships' => $this->when(
-                $this->relationships, $this->relationships
-            ),
         ];
+    }
+
+    /**
+     * Get filtered attributes excluding all the ids.
+     *
+     * @return array
+     */
+    protected function getAttributes()
+    {
+        return array_filter($this->resource->attributesToArray(), function ($key) {
+            return ! Str::endsWith($key, '_id') && $key !== $this->resource->getKeyName();
+        }, ARRAY_FILTER_USE_KEY);
     }
 }
