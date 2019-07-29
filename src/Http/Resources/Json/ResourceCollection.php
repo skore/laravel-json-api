@@ -8,6 +8,7 @@ use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Http\Resources\CollectsResources;
 use Illuminate\Support\Facades\Auth;
 use SkoreLabs\JsonApi\Http\Resources\JsonApiResource;
+use Illuminate\Http\Resources\Json\PaginatedResourceResponse;
 
 class ResourceCollection extends JsonApiResource implements Countable, IteratorAggregate
 {
