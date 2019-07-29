@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class JsonApiResource extends JsonResource
 {
-    use Authorizable, RelationshipsWithIncludes, ConditionallyLoadsAttributes;
+    use Authorizable, RelationshipsWithIncludes;
 
     /**
      * The resource instance.
