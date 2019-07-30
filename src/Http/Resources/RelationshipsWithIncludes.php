@@ -4,6 +4,7 @@ namespace SkoreLabs\JsonApi\Http\Resources;
 
 use Illuminate\Database\Eloquent\{Model, Collection};
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
 
 /**
  * @property mixed $resource
