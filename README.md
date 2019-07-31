@@ -43,6 +43,21 @@ class UserController extends Controller
 }
 ```
 
+### Authorisation
+
+For authorize a resource or collection you'll need the `view` and `viewAny` on the **model policy**, which you can create passing the model to the make command:
+
+```
+php artisan make:policy UserPolicy -m User
+```
+
+Alternatively, you can pass an authorisation (boolean) to the constructor of the resource like this:
+
+```php
+// Forced to allow view the user
+return new JsonApiResource($user, true);
+```
+
 ## Features
 
 - Full formatting using pure built-in model methods and properties.
