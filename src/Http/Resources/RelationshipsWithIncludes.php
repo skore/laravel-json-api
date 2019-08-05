@@ -2,7 +2,7 @@
 
 namespace SkoreLabs\JsonApi\Http\Resources;
 
-use Illuminate\Database\Eloquent\{Model, Collection};
+use Illuminate\Database\Eloquent\{Model, Collection, Relations\Pivot};
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
 
@@ -35,10 +35,9 @@ trait RelationshipsWithIncludes
     }
 
     /**
-     * Undocumented function
+     * Attach relationships to the resource.
      *
      * @param \Illuminate\Database\Eloquent\Model $model
-     * @param bool $collects
      * @return void
      */
     protected function attachRelations(Model $model)
@@ -55,7 +54,7 @@ trait RelationshipsWithIncludes
                 }
             }
 
-            if ($relationObj instanceof Model) {
+            if ($relationObj instanceof Model && ! $relationObj instanceof Pivot) {
                 $this->relationships[$relation]['data'] = $this->processModelRelation(
                     $relationObj
                 );
