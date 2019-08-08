@@ -4,6 +4,9 @@ namespace SkoreLabs\JsonApi\Http\Resources;
 
 use Illuminate\Support\{Arr, Collection};
 
+/**
+ * @property array $with
+ */
 trait CollectsWithIncludes
 {
     /**
@@ -13,12 +16,10 @@ trait CollectsWithIncludes
      */
     protected function withIncludes()
     {
-        $this->with['included'] = [];
-
         /** @var \SkoreLabs\JsonApi\Http\Resources\JsonApiResource $jsonResource */
         foreach ($this->collection->toArray() as $jsonResource) {
             if ($jsonResource->with) {
-                $this->with['included'][] = Arr::get($jsonResource->with, 'included');
+                $this->addIncluded(Arr::get($jsonResource->with, 'included'));
             }
         }
 
@@ -32,7 +33,9 @@ trait CollectsWithIncludes
      */
     protected function uniqueIncludes()
     {
-        $includedCollection = Collection::make($this->with['included'])->flatten();
+        $includedCollection = Collection::make(
+            Arr::get($this->with, 'included', [])
+        )->flatten();
 
         return $includedCollection->unique(static function (JsonApiResource $resource) {
             return implode('', $resource->getResourceIdentifier());

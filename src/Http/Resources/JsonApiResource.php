@@ -24,7 +24,7 @@ class JsonApiResource extends JsonResource
      * @param bool $authorize
      * @return void
      */
-    public function __construct($resource, $authorize = false)
+    public function __construct($resource, $authorize = null)
     {
         if (gettype($authorize) === 'boolean') {
             $this->authorize = $authorize;
@@ -80,7 +80,7 @@ class JsonApiResource extends JsonResource
     {
         return [
             $this->resource->getKeyName() => (string) $this->resource->getKey(),
-            'type' => Str::lower(class_basename($this->resource)),
+            'type' => Str::snake(class_basename($this->resource)),
         ];
     }
 

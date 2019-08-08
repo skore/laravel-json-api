@@ -3,11 +3,12 @@
 namespace SkoreLabs\JsonApi\Http\Resources;
 
 use Illuminate\Database\Eloquent\{Model, Collection, Relations\Pivot};
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
 
 /**
  * @property mixed $resource
+ * @property array $with
+ * @property bool $authorize
  */
 trait RelationshipsWithIncludes
 {
@@ -25,11 +26,7 @@ trait RelationshipsWithIncludes
      */
     protected function withRelationships()
     {
-        if ($this->resource instanceof LengthAwarePaginator) {
-            $this->resource->getCollection()->map(function (Model $model) {
-                $this->attachRelations($model, true);
-            });
-        } else if ($this->resource instanceof Model) {
+        if ($this->resource instanceof Model) {
             $this->attachRelations($this->resource);
         }
     }
@@ -72,12 +69,23 @@ trait RelationshipsWithIncludes
     {
         $modelResource = new JsonApiResource($model, $this->authorize);
 
-        $this->with['included'][] = $modelResource;
-
-        if (Arr::has($modelResource->with, 'included')) {
-            $this->with['included'][] = $modelResource->with['included'];
-        }
+        $this->addIncluded([$modelResource],
+            Arr::get($modelResource->with, 'included', [])
+        );
 
         return $modelResource->getResourceIdentifier();
+    }
+
+    /**
+     * Set included data to resource's with.
+     *
+     * @param array $arrays,...
+     * @return void
+     */
+    protected function addIncluded(...$arrays)
+    {
+        Arr::set($this->with, 'included',
+            array_merge(Arr::get($this->with, 'included', []), ...$arrays)
+        );
     }
 }
