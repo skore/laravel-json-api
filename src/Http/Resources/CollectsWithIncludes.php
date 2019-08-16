@@ -25,7 +25,11 @@ trait CollectsWithIncludes
             }
         }
 
-        $this->with['included'] = $this->uniqueIncludes();
+        $included = $this->uniqueIncludes();
+
+        if ($included) {
+            $this->with['included'] = $included;
+        }
     }
 
     /**
