@@ -5,10 +5,9 @@ namespace SkoreLabs\JsonApi\Http\Resources\Json;
 use Countable;
 use IteratorAggregate;
 use Illuminate\Pagination\AbstractPaginator;
-use Illuminate\Http\Resources\CollectsResources;
-use Illuminate\Support\Facades\Auth;
 use SkoreLabs\JsonApi\Http\Resources\JsonApiResource;
 use Illuminate\Http\Resources\Json\PaginatedResourceResponse;
+use SkoreLabs\JsonApi\Http\Resources\CollectsResources;
 
 class ResourceCollection extends JsonApiResource implements Countable, IteratorAggregate
 {
@@ -36,8 +35,6 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
      */
     public function __construct($resource)
     {
-        parent::__construct($resource, Auth::user()->can('viewAny', get_class($resource)));
-
         $this->resource = $this->collectResource($resource);
     }
 
@@ -71,7 +68,7 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
     public function toResponse($request)
     {
         return $this->resource instanceof AbstractPaginator
-                    ? (new PaginatedResourceResponse($this))->toResponse($request)
-                    : parent::toResponse($request);
+            ? (new PaginatedResourceResponse($this))->toResponse($request)
+            : parent::toResponse($request);
     }
 }

@@ -21,7 +21,7 @@ class JsonApiResource extends JsonResource
      * Create a new resource instance.
      *
      * @param  mixed  $resource
-     * @param bool $authorize
+     * @param  bool|null  $authorize
      * @return void
      */
     public function __construct($resource, $authorize = null)

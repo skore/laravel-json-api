@@ -12,11 +12,13 @@ class JsonApiCollection extends ResourceCollection
      * Create a new resource instance.
      *
      * @param  mixed  $resource
+     * @param  bool|null  $authorize
      * @return void
      */
-    public function __construct($resource)
+    public function __construct($resource, $authorize = null)
     {
         $this->collects = JsonApiResource::class;
+        $this->authorize = $authorize;
 
         parent::__construct($resource);
 
