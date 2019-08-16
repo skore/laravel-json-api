@@ -2,9 +2,11 @@
 
 namespace SkoreLabs\JsonApi\Http\Resources;
 
-use Illuminate\Support\{Arr, Collection};
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 /**
+ * @property \Illuminate\Support\Collection $collection
  * @property array $with
  */
 trait CollectsWithIncludes
