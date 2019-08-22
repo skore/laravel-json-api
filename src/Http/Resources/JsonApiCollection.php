@@ -11,8 +11,9 @@ class JsonApiCollection extends ResourceCollection
     /**
      * Create a new resource instance.
      *
-     * @param  mixed  $resource
-     * @param  bool|null  $authorize
+     * @param mixed     $resource
+     * @param bool|null $authorize
+     *
      * @return void
      */
     public function __construct($resource, $authorize = null)

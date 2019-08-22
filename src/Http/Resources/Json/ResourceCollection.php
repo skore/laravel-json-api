@@ -3,11 +3,11 @@
 namespace SkoreLabs\JsonApi\Http\Resources\Json;
 
 use Countable;
-use IteratorAggregate;
-use Illuminate\Pagination\AbstractPaginator;
-use SkoreLabs\JsonApi\Http\Resources\JsonApiResource;
 use Illuminate\Http\Resources\Json\PaginatedResourceResponse;
+use Illuminate\Pagination\AbstractPaginator;
+use IteratorAggregate;
 use SkoreLabs\JsonApi\Http\Resources\CollectsResources;
+use SkoreLabs\JsonApi\Http\Resources\JsonApiResource;
 
 class ResourceCollection extends JsonApiResource implements Countable, IteratorAggregate
 {
@@ -30,7 +30,8 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
     /**
      * Create a new resource instance.
      *
-     * @param  mixed  $resource
+     * @param mixed $resource
+     *
      * @return void
      */
     public function __construct($resource)
@@ -51,7 +52,8 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
     /**
      * Transform the resource into a JSON array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function toArray($request)
@@ -62,7 +64,8 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
     /**
      * Create an HTTP response that represents the object.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function toResponse($request)
