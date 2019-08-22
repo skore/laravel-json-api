@@ -20,8 +20,9 @@ class JsonApiResource extends JsonResource
     /**
      * Create a new resource instance.
      *
-     * @param  mixed  $resource
-     * @param  bool|null  $authorize
+     * @param mixed     $resource
+     * @param bool|null $authorize
+     *
      * @return void
      */
     public function __construct($resource, $authorize = null)
@@ -30,7 +31,7 @@ class JsonApiResource extends JsonResource
             $this->authorize = $authorize;
         }
 
-        if (! $this->authorize($resource)) {
+        if (!$this->authorize($resource)) {
             $this->resource = new MissingValue();
         } else {
             $this->resource = $resource;
@@ -41,7 +42,8 @@ class JsonApiResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function toArray($request)
@@ -49,7 +51,7 @@ class JsonApiResource extends JsonResource
         if ($this->evaluateResponse()) {
             return [
                 $this->merge($this->getResourceIdentifier()),
-                'attributes' => $this->getAttributes(),
+                'attributes'    => $this->getAttributes(),
                 'relationships' => $this->when(
                     $this->relationships, $this->relationships
                 ),
@@ -66,9 +68,9 @@ class JsonApiResource extends JsonResource
      */
     protected function evaluateResponse()
     {
-        return ! is_array($this->resource)
-            && ! is_null($this->resource)
-            && ! $this->resource instanceof MissingValue;
+        return !is_array($this->resource)
+            && !is_null($this->resource)
+            && !$this->resource instanceof MissingValue;
     }
 
     /**
@@ -80,7 +82,7 @@ class JsonApiResource extends JsonResource
     {
         return [
             $this->resource->getKeyName() => (string) $this->resource->getKey(),
-            'type' => Str::snake(class_basename($this->resource)),
+            'type'                        => Str::snake(class_basename($this->resource)),
         ];
     }
 
@@ -92,7 +94,7 @@ class JsonApiResource extends JsonResource
     protected function getAttributes()
     {
         return array_filter($this->resource->attributesToArray(), function ($key) {
-            return ! Str::endsWith($key, '_id') && $key !== $this->resource->getKeyName();
+            return !Str::endsWith($key, '_id') && $key !== $this->resource->getKeyName();
         }, ARRAY_FILTER_USE_KEY);
     }
 }

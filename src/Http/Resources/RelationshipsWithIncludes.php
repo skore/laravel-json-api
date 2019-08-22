@@ -2,8 +2,8 @@
 
 namespace SkoreLabs\JsonApi\Http\Resources;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Arr;
 
@@ -37,6 +37,7 @@ trait RelationshipsWithIncludes
      * Attach relationships to the resource.
      *
      * @param \Illuminate\Database\Eloquent\Model $model
+     *
      * @return void
      */
     protected function attachRelations(Model $model)
@@ -53,7 +54,7 @@ trait RelationshipsWithIncludes
                 }
             }
 
-            if ($relationObj instanceof Model && ! $relationObj instanceof Pivot) {
+            if ($relationObj instanceof Model && !$relationObj instanceof Pivot) {
                 $this->relationships[$relation]['data'] = $this->processModelRelation(
                     $relationObj
                 );
@@ -65,6 +66,7 @@ trait RelationshipsWithIncludes
      * Process a model relation attaching to its model additional attributes.
      *
      * @param \Illuminate\Database\Eloquent\Model $model
+     *
      * @return array
      */
     protected function processModelRelation(Model $model)
@@ -82,6 +84,7 @@ trait RelationshipsWithIncludes
      * Set included data to resource's with.
      *
      * @param array $arrays,...
+     *
      * @return void
      */
     protected function addIncluded(...$arrays)

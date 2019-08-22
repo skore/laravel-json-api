@@ -3,17 +3,18 @@
 namespace SkoreLabs\JsonApi\Http\Resources;
 
 use Illuminate\Http\Resources\MissingValue;
-use Illuminate\Support\Str;
 use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 trait CollectsResources
 {
     /**
      * Map the given collection resource into its individual resources.
      *
-     * @param  mixed  $resource
+     * @param mixed $resource
+     *
      * @return mixed
      */
     protected function collectResource($resource)
@@ -24,7 +25,7 @@ trait CollectsResources
 
         $collects = $this->collects();
 
-        $this->collection = $collects && ! $resource->first() instanceof $collects
+        $this->collection = $collects && !$resource->first() instanceof $collects
             ? $this->getFiltered($resource, $collects)
             : $resource->toBase();
 
@@ -34,9 +35,10 @@ trait CollectsResources
     }
 
     /**
-     * Undocumented function
+     * Undocumented function.
      *
      * @param \Illuminate\Pagination\AbstractPaginator $resource
+     *
      * @return void
      */
     protected function refreshPaginator(AbstractPaginator $resource)
@@ -55,6 +57,7 @@ trait CollectsResources
      *
      * @param mixed $resource
      * @param mixed $collects
+     *
      * @return \Illuminate\Support\Collection
      */
     protected function getFiltered($resource, $collects)
@@ -71,7 +74,7 @@ trait CollectsResources
         });
 
         return $collection->filter(function (JsonApiResource $item) {
-            return ! $item->resource instanceof MissingValue;
+            return !$item->resource instanceof MissingValue;
         });
     }
 
