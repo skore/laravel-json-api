@@ -2,6 +2,8 @@
 
 <h1 align="center">Laravel JSON:API</h1>
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/aa7cce89305c47f7bf9b0684b97e90ca)](https://www.codacy.com/app/d8vjork/laravel-json-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=skore/laravel-json-api&amp;utm_campaign=Badge_Grade) [![StyleCI](https://github.styleci.io/repos/198988581/shield?branch=master)](https://github.styleci.io/repos/198988581)
+
 Integrate JSON:API resources on Laravel.
 
 **Note: This package is under initial development stage, please use it carefully on production.**
