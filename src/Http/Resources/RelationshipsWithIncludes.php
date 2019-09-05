@@ -73,9 +73,7 @@ trait RelationshipsWithIncludes
     {
         $modelResource = new JsonApiResource($model, $this->authorize);
 
-        $this->addIncluded([$modelResource],
-            Arr::get($modelResource->with, 'included', [])
-        );
+        $this->addIncluded($modelResource);
 
         return $modelResource->getResourceIdentifier();
     }
@@ -83,14 +81,30 @@ trait RelationshipsWithIncludes
     /**
      * Set included data to resource's with.
      *
-     * @param array $arrays,...
+     * @param $resource
      *
      * @return void
      */
-    protected function addIncluded(...$arrays)
+    protected function addIncluded(JsonApiResource $resource)
     {
-        Arr::set($this->with, 'included',
-            array_merge(Arr::get($this->with, 'included', []), ...$arrays)
-        );
+        $itemsCol = Collection::make([
+            $resource,
+            array_values($this->getIncluded()),
+            array_values($resource->getIncluded())
+        ])->flatten();
+
+        Arr::set($this->with, 'included', $itemsCol->unique(static function ($resource) {
+            return implode('', $resource->getResourceIdentifier());
+        })->values()->all());
+    }
+
+    /**
+     * Get resource included relationships.
+     *
+     * @return array
+     */
+    public function getIncluded()
+    {
+        return Arr::get($this->with, 'included', []);
     }
 }
