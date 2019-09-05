@@ -90,7 +90,7 @@ trait RelationshipsWithIncludes
         $itemsCol = Collection::make([
             $resource,
             array_values($this->getIncluded()),
-            array_values($resource->getIncluded())
+            array_values($resource->getIncluded()),
         ])->flatten();
 
         Arr::set($this->with, 'included', $itemsCol->unique(static function ($resource) {
