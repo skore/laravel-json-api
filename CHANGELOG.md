@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2019-09-10
+
+### Added
+
+- Compatibility with Laravel 6.0
+
+### Changed
+
+- Allow include of Pivot relationships
+
+### Fixed
+
+- Resource on included on JsonApiCollection when include param not present
+
 ## [1.1.2] - 2019-09-05
 
 ### Fixed
