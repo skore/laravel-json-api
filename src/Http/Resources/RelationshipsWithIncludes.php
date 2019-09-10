@@ -2,10 +2,10 @@
 
 namespace SkoreLabs\JsonApi\Http\Resources;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Collection as DatabaseCollection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 /**
  * @property mixed $resource
@@ -45,7 +45,7 @@ trait RelationshipsWithIncludes
         $relations = array_filter($model->getRelations());
 
         foreach ($relations as $relation => $relationObj) {
-            if ($relationObj instanceof Collection) {
+            if ($relationObj instanceof DatabaseCollection) {
                 /** @var \Illuminate\Database\Eloquent\Model $relationModel */
                 foreach ($relationObj->all() as $relationModel) {
                     $this->relationships[$relation]['data'][] = $this->processModelRelation(
@@ -54,7 +54,7 @@ trait RelationshipsWithIncludes
                 }
             }
 
-            if ($relationObj instanceof Model && !$relationObj instanceof Pivot) {
+            if ($relationObj instanceof Model) {
                 $this->relationships[$relation]['data'] = $this->processModelRelation(
                     $relationObj
                 );
@@ -72,10 +72,14 @@ trait RelationshipsWithIncludes
     protected function processModelRelation(Model $model)
     {
         $modelResource = new JsonApiResource($model, $this->authorize);
+        $modelIdentifier = $modelResource->getResourceIdentifier();
 
-        $this->addIncluded($modelResource);
+        if (!empty(Arr::get($modelIdentifier, $model->getKeyName(), null))) {
+            $this->addIncluded($modelResource);
+            return $modelIdentifier;
+        }
 
-        return $modelResource->getResourceIdentifier();
+        return [];
     }
 
     /**
@@ -93,9 +97,9 @@ trait RelationshipsWithIncludes
             array_values($resource->getIncluded()),
         ])->flatten();
 
-        Arr::set($this->with, 'included', $itemsCol->unique(static function ($resource) {
-            return implode('', $resource->getResourceIdentifier());
-        })->values()->all());
+        Arr::set($this->with, 'included', $this->checkUniqueness(
+            $itemsCol
+        )->values()->all());
     }
 
     /**
@@ -106,5 +110,19 @@ trait RelationshipsWithIncludes
     public function getIncluded()
     {
         return Arr::get($this->with, 'included', []);
+    }
+
+    /**
+     * Check and return unique resources on a collection.
+     *
+     * @param \Illuminate\Support\Collection
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    protected function checkUniqueness(Collection $collection)
+    {
+        return $collection->unique(static function ($resource) {
+            return implode('', $resource->getResourceIdentifier());
+        });
     }
 }
