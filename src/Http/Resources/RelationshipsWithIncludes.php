@@ -76,6 +76,7 @@ trait RelationshipsWithIncludes
 
         if (!empty(Arr::get($modelIdentifier, $model->getKeyName(), null))) {
             $this->addIncluded($modelResource);
+
             return $modelIdentifier;
         }
 
