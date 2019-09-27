@@ -45,7 +45,7 @@ trait CollectsResources
     {
         return (new LengthAwarePaginator(
             $this->collection,
-            $resource->total(),
+            $this->collection->count(),
             $resource->perPage(),
             $resource->currentPage(),
             $resource->getOptions()
