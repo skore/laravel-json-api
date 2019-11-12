@@ -24,12 +24,21 @@
         "phpunit/phpunit": "^7.0|^8.0"
     },
     "suggest": {
-        "spatie/laravel-query-builder": "Allows to include data on your API responses following the JSON:API",
-        "spatie/laravel-json-api-paginate": "Change a little bit the default pagination params of Laravel for the JSON:API ones"
+        "spatie/laravel-query-builder": "Allows to include data on your API responses following the JSON:API"
     },
     "autoload": {
         "psr-4": {
             "SkoreLabs\\JsonApi\\": "src"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SkoreLabs\\JsonApi\\JsonApiServiceProvider"
+            ]
         }
     }
 }

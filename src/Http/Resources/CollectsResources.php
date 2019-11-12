@@ -4,7 +4,6 @@ namespace SkoreLabs\JsonApi\Http\Resources;
 
 use Illuminate\Http\Resources\MissingValue;
 use Illuminate\Pagination\AbstractPaginator;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -29,27 +28,7 @@ trait CollectsResources
             ? $this->getFiltered($resource, $collects)
             : $resource->toBase();
 
-        return $resource instanceof AbstractPaginator
-            ? $this->refreshPaginator($resource)
-            : $this->collection;
-    }
-
-    /**
-     * Undocumented function.
-     *
-     * @param \Illuminate\Pagination\AbstractPaginator $resource
-     *
-     * @return void
-     */
-    protected function refreshPaginator(AbstractPaginator $resource)
-    {
-        return (new LengthAwarePaginator(
-            $this->collection,
-            $this->collection->count(),
-            $resource->perPage(),
-            $resource->currentPage(),
-            $resource->getOptions()
-        ))->setPageName($resource->getPageName());
+        return $this->collection->paginate();
     }
 
     /**
@@ -62,7 +41,10 @@ trait CollectsResources
      */
     protected function getFiltered($resource, $collects)
     {
-        /** @var \Illuminate\Support\Collection $collection */
+        if ($resource instanceof AbstractPaginator) {
+            $resource = $resource->getCollection();
+        }
+
         $collection = $resource->map(function ($item) use ($collects) {
             $authorize = $this->authorize;
 
