@@ -2,8 +2,8 @@
 
 namespace SkoreLabs\JsonApi;
 
-use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
 class JsonApiServiceProvider extends ServiceProvider
@@ -41,7 +41,7 @@ class JsonApiServiceProvider extends ServiceProvider
      */
     protected function registerMacro()
     {
-        /**
+        /*
          * Paginate a standard Laravel Collection.
          *
          * @param int $perPage
@@ -60,7 +60,7 @@ class JsonApiServiceProvider extends ServiceProvider
                 (int) $perPage,
                 $page,
                 [
-                    'path' => LengthAwarePaginator::resolveCurrentPath(),
+                    'path'     => LengthAwarePaginator::resolveCurrentPath(),
                     'pageName' => 'page[number]',
                 ]
             );
