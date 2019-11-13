@@ -3,6 +3,7 @@
 namespace SkoreLabs\JsonApi;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
@@ -52,7 +53,7 @@ class JsonApiServiceProvider extends ServiceProvider
          */
         Collection::macro('paginate', function ($perPage = null, $total = null, $page = null, $pageName = 'page') {
             $perPage = $perPage ?? request('page.size') ?? config('json-api-paginate.default_size');
-            $page = $page ?: LengthAwarePaginator::resolveCurrentPage($pageName);
+            $page = $page ?? request('page.number') ?? LengthAwarePaginator::resolveCurrentPage($pageName);
 
             $jsonPaginator = new LengthAwarePaginator(
                 $this->forPage($page, $perPage),
@@ -65,7 +66,9 @@ class JsonApiServiceProvider extends ServiceProvider
                 ]
             );
 
-            return $jsonPaginator;
+            return $jsonPaginator->appends(
+                Arr::except((array) request()->query(), 'page.number')
+            );
         });
     }
 }
