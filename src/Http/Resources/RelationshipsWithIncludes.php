@@ -42,7 +42,9 @@ trait RelationshipsWithIncludes
      */
     protected function attachRelations(Model $model)
     {
-        $relations = array_filter($model->getRelations());
+        $relations = array_filter($model->getRelations(), function ($value, $key) {
+            return $key !== 'pivot' ?: (bool) $value === false;
+        }, ARRAY_FILTER_USE_BOTH);
 
         foreach ($relations as $relation => $relationObj) {
             if ($relationObj instanceof DatabaseCollection) {
