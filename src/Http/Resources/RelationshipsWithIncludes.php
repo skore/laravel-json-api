@@ -94,15 +94,19 @@ trait RelationshipsWithIncludes
      */
     protected function addIncluded(JsonApiResource $resource)
     {
-        $itemsCol = Collection::make([
+        $includesCol = Collection::make([
             $resource,
             array_values($this->getIncluded()),
             array_values($resource->getIncluded()),
         ])->flatten();
 
-        Arr::set($this->with, 'included', $this->checkUniqueness(
-            $itemsCol
-        )->values()->all());
+        $includesArr = $this->checkUniqueness(
+            $includesCol
+        )->values()->all();
+
+        if (!empty($includesArr)) {
+            Arr::set($this->with, 'included', $includesArr);
+        }
     }
 
     /**

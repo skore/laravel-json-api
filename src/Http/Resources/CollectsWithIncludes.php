@@ -29,8 +29,12 @@ trait CollectsWithIncludes
             }
         }
 
-        Arr::set($this->with, 'includes', $this->checkUniqueness(
+        $includesArr = $this->checkUniqueness(
             $collectionIncludes
-        )->values()->all());
+        )->values()->all();
+
+        if (!empty($includesArr)) {
+            Arr::set($this->with, 'includes', $includesArr);
+        }
     }
 }
