@@ -6,8 +6,6 @@
 
 Integrate JSON:API resources on Laravel.
 
-**Note: This package is under initial development stage, please use it carefully on production.**
-
 ## Installation
 
 You can install the package via composer:
@@ -39,7 +37,7 @@ class UserController extends Controller
     public function index()
     {
         return new JsonApiCollection(
-            User::simplePaginate()
+            User::all()
         );
     }
 }
