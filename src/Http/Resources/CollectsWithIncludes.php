@@ -18,7 +18,7 @@ trait CollectsWithIncludes
     protected function withIncludes()
     {
         $collectionIncludes = Collection::make(
-            Arr::get($this->with, 'includes', [])
+            Arr::get($this->with, 'included', [])
         );
 
         /** @var \SkoreLabs\JsonApi\Http\Resources\JsonApiResource $jsonResource */
@@ -34,7 +34,7 @@ trait CollectsWithIncludes
         )->values()->all();
 
         if (!empty($includesArr)) {
-            Arr::set($this->with, 'includes', $includesArr);
+            Arr::set($this->with, 'included', $includesArr);
         }
     }
 }
