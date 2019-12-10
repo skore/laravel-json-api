@@ -7,9 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `Collection::paginate()` macro with params and config for maximum per page results
+
+### Changed
+
+- Now JsonApiCollection constructor **ONLY** accepts Laravel collections and arrays of models
+- `includes` now are `included` following JSON:API specs
+
+### Removed
+
+- **Pagination refresh on JsonApiCollection**
+- Composer suggested package: [spatie/laravel-json-api-paginate](https://github.com/spatie/laravel-json-api-paginate)
+
 ## [1.2.1] - 2019-09-10
 
-### Fixed
+### Fixed
 
 - Composer dependencies
 
