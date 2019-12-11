@@ -3,7 +3,7 @@
 namespace SkoreLabs\JsonApi\Http\Resources;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 trait Authorizable
 {
@@ -25,7 +25,7 @@ trait Authorizable
     {
         $this->authorize = $this->authorize
             ?: !$resource instanceof Model
-            ?: Auth::user()->can('view', $resource);
+            ?: Gate::check('view', $resource);
 
         return $this->authorize;
     }
