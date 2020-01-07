@@ -18,7 +18,7 @@ class JsonApiServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/json-api-paginate.php' => config_path('json-api-paginate.php'),
+                __DIR__.'/../config/json-api.php' => config_path('json-api.php'),
             ], 'config');
         }
 
@@ -32,7 +32,7 @@ class JsonApiServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/json-api-paginate.php', 'json-api-paginate');
+        $this->mergeConfigFrom(__DIR__.'/../config/json-api.php', 'json-api');
     }
 
     /**
@@ -52,7 +52,7 @@ class JsonApiServiceProvider extends ServiceProvider
          * @return array
          */
         Collection::macro('paginate', function ($perPage = null, $total = null, $page = null, $pageName = 'page') {
-            $perPage = $perPage ?? request('page.size') ?? config('json-api-paginate.default_size');
+            $perPage = $perPage ?? request('page.size') ?? config('json-api.pagination.default_size');
             $page = $page ?? request('page.number') ?? LengthAwarePaginator::resolveCurrentPage($pageName);
 
             $jsonPaginator = new LengthAwarePaginator(

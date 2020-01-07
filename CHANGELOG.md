@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `Collection::paginate()` macro with params and config for maximum per page results
+- Config file (*json-api.php*) with some configurable behavior of the package
 
 ### Changed
 
