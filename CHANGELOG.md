@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Now JsonApiCollection constructor **ONLY** accepts Laravel collections and arrays of models
 - `includes` now are `included` following JSON:API specs
+- Removed usage of Auth facade (replaced by Gate), allowing anonymous authorisations
 
 ### Removed
 

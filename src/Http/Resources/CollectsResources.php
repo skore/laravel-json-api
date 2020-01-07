@@ -4,7 +4,7 @@ namespace SkoreLabs\JsonApi\Http\Resources;
 
 use Illuminate\Http\Resources\MissingValue;
 use Illuminate\Pagination\AbstractPaginator;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 trait CollectsResources
@@ -49,7 +49,7 @@ trait CollectsResources
             $authorize = $this->authorize;
 
             if (gettype($this->authorize) !== 'boolean') {
-                $authorize = Auth::user()->can('viewAny', class_basename($item));
+                $authorise = Gate::check($authoriseKey, class_basename($item));
             }
 
             return new $collects($item, $authorize);
