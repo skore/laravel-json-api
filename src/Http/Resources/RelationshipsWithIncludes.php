@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 /**
  * @property mixed $resource
  * @property array $with
- * @property bool $authorize
+ * @property bool $authorise
  */
 trait RelationshipsWithIncludes
 {
@@ -42,7 +42,7 @@ trait RelationshipsWithIncludes
      */
     protected function attachRelations(Model $model)
     {
-        $relations = array_filter($model->getRelations(), function ($value, $key) {
+        $relations = array_filter($model->getRelations(), static function ($value, $key) {
             return $key !== 'pivot' ?: (bool) $value === false;
         }, ARRAY_FILTER_USE_BOTH);
 
@@ -73,7 +73,7 @@ trait RelationshipsWithIncludes
      */
     protected function processModelRelation(Model $model)
     {
-        $modelResource = new JsonApiResource($model, $this->authorize);
+        $modelResource = new JsonApiResource($model, $this->authorise);
         $modelIdentifier = $modelResource->getResourceIdentifier();
 
         if (!empty(Arr::get($modelIdentifier, $model->getKeyName(), null))) {
@@ -105,7 +105,7 @@ trait RelationshipsWithIncludes
         )->values()->all();
 
         if (!empty($includesArr)) {
-            Arr::set($this->with, 'included', $includesArr);
+            Arr::set($this->with, $this->getIncludedConfig(), $includesArr);
         }
     }
 
@@ -116,7 +116,7 @@ trait RelationshipsWithIncludes
      */
     public function getIncluded()
     {
-        return Arr::get($this->with, 'included', []);
+        return $this->with[$this->getIncludedConfig()] ?? [];
     }
 
     /**

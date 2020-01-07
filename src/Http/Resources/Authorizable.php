@@ -12,7 +12,7 @@ trait Authorizable
      *
      * @var bool
      */
-    public $authorize;
+    public $authorise;
 
     /**
      * Authorize to view this resource.
@@ -23,10 +23,11 @@ trait Authorizable
      */
     protected function authorize($resource)
     {
-        $this->authorize = $this->authorize
+        $this->authorise = $this->authorise
+            ?: $this->getAuthorisableConfig('view')
             ?: !$resource instanceof Model
             ?: Gate::check('view', $resource);
 
-        return $this->authorize;
+        return $this->authorise;
     }
 }

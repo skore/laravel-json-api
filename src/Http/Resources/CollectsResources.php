@@ -32,7 +32,7 @@ trait CollectsResources
     }
 
     /**
-     * Get resource collection filtered by authorization.
+     * Get resource collection filtered by authorisation.
      *
      * @param mixed $resource
      * @param mixed $collects
@@ -46,13 +46,14 @@ trait CollectsResources
         }
 
         $collection = $resource->map(function ($item) use ($collects) {
-            $authorize = $this->authorize;
+            $authoriseKey = 'viewAny';
+            $authorise = $this->authorise;
 
-            if (gettype($this->authorize) !== 'boolean') {
+            if (!$this->getAuthorisableConfig($authoriseKey) && gettype($this->authorise) !== 'boolean') {
                 $authorise = Gate::check($authoriseKey, class_basename($item));
             }
 
-            return new $collects($item, $authorize);
+            return new $collects($item, $authorise);
         });
 
         return $collection->filter(function (JsonApiResource $item) {

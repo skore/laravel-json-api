@@ -5,10 +5,13 @@ namespace SkoreLabs\JsonApi\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\MissingValue;
 use Illuminate\Support\Str;
+use SkoreLabs\JsonApi\Concerns\HasConfig;
 
 class JsonApiResource extends JsonResource
 {
-    use Authorizable, RelationshipsWithIncludes;
+    use Authorizable,
+        RelationshipsWithIncludes,
+        HasConfig;
 
     /**
      * The resource instance.
@@ -21,21 +24,19 @@ class JsonApiResource extends JsonResource
      * Create a new resource instance.
      *
      * @param mixed     $resource
-     * @param bool|null $authorize
+     * @param bool|null $authorise
      *
      * @return void
      */
-    public function __construct($resource, $authorize = null)
+    public function __construct($resource, $authorise = null)
     {
-        if (gettype($authorize) === 'boolean') {
-            $this->authorize = $authorize;
-        }
+        $this->authorise = $authorise;
 
-        if (!$this->authorize($resource)) {
-            $this->resource = new MissingValue();
-        } else {
+        if ($this->authorize($resource)) {
             $this->resource = $resource;
             $this->withRelationships();
+        } else {
+            $this->resource = new MissingValue();
         }
     }
 
