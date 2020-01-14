@@ -28,7 +28,9 @@ trait CollectsResources
             ? $this->getFiltered($resource, $collects)
             : $resource->toBase();
 
-        return $this->collection->paginate();
+        return $resource instanceof AbstractPaginator
+            ? $resource->setCollection($this->collection)
+            : $this->collection;
     }
 
     /**
