@@ -68,7 +68,8 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
     /**
      * Specify the query string parameters that should be present on pagination links.
      *
-     * @param  array  $query
+     * @param array $query
+     *
      * @return $this
      */
     public function withQuery(array $query)
@@ -121,14 +122,15 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
     /**
      * Create a paginate-aware HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     protected function preparePaginatedResponse($request)
     {
         if ($this->preserveAllQueryParameters) {
             $this->resource->appends($request->query());
-        } elseif (! is_null($this->queryParameters)) {
+        } elseif (!is_null($this->queryParameters)) {
             $this->resource->appends($this->queryParameters);
         }
 

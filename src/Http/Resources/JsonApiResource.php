@@ -9,9 +9,9 @@ use SkoreLabs\JsonApi\Concerns\HasConfig;
 
 class JsonApiResource extends JsonResource
 {
-    use Authorizable,
-        RelationshipsWithIncludes,
-        HasConfig;
+    use Authorizable;
+    use RelationshipsWithIncludes;
+    use HasConfig;
 
     /**
      * The resource instance.

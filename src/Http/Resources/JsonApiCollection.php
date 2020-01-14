@@ -7,8 +7,8 @@ use SkoreLabs\JsonApi\Http\Resources\Json\ResourceCollection;
 
 class JsonApiCollection extends ResourceCollection
 {
-    use CollectsWithIncludes,
-        HasConfig;
+    use CollectsWithIncludes;
+    use HasConfig;
 
     /**
      * Create a new resource instance.
