@@ -2,9 +2,6 @@
 
 namespace SkoreLabs\JsonApi;
 
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
 class JsonApiServiceProvider extends ServiceProvider
@@ -21,8 +18,6 @@ class JsonApiServiceProvider extends ServiceProvider
                 __DIR__.'/../config/json-api.php' => config_path('json-api.php'),
             ], 'config');
         }
-
-        $this->registerMacro();
     }
 
     /**
@@ -33,42 +28,5 @@ class JsonApiServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/json-api.php', 'json-api');
-    }
-
-    /**
-     * Register package added macros.
-     *
-     * @return void
-     */
-    protected function registerMacro()
-    {
-        /*
-         * Paginate a standard Laravel Collection.
-         *
-         * @param int $perPage
-         * @param int $total
-         * @param int $page
-         * @param string $pageName
-         * @return array
-         */
-        Collection::macro('paginate', function ($perPage = null, $total = null, $page = null, $pageName = 'page') {
-            $perPage = $perPage ?? request('page.size') ?? config('json-api.pagination.default_size');
-            $page = $page ?? request('page.number') ?? LengthAwarePaginator::resolveCurrentPage($pageName);
-
-            $jsonPaginator = new LengthAwarePaginator(
-                $this->forPage($page, $perPage),
-                $total ?: $this->count(),
-                (int) $perPage,
-                $page,
-                [
-                    'path'     => LengthAwarePaginator::resolveCurrentPath(),
-                    'pageName' => 'page[number]',
-                ]
-            );
-
-            return $jsonPaginator->appends(
-                Arr::except((array) request()->query(), 'page.number')
-            );
-        });
     }
 }
