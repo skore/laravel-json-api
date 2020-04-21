@@ -53,9 +53,7 @@ class JsonApiResource extends JsonResource
             return [
                 $this->merge($this->getResourceIdentifier()),
                 'attributes'    => $this->getAttributes(),
-                'relationships' => $this->when(
-                    $this->relationships, $this->relationships
-                ),
+                'relationships' => $this->when($this->relationships, $this->relationships),
             ];
         }
 
@@ -94,8 +92,22 @@ class JsonApiResource extends JsonResource
      */
     protected function getAttributes()
     {
-        return array_filter($this->resource->attributesToArray(), function ($key) {
-            return !Str::endsWith($key, '_id') && $key !== $this->resource->getKeyName();
-        }, ARRAY_FILTER_USE_KEY);
+        return array_filter(
+            array_merge($this->resource->attributesToArray(), $this->withAttributes()),
+            function ($value, $key) {
+                return !Str::endsWith($key, '_id') && $key !== $this->resource->getKeyName() && !is_null($value);
+            },
+            ARRAY_FILTER_USE_BOTH
+        );
+    }
+
+    /**
+     * Attach additional attributes data.
+     *
+     * @return array
+     */
+    protected function withAttributes()
+    {
+        return [];
     }
 }
