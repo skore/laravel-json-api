@@ -7,10 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2020-04-21
+
 ### Added
 
 - `Collection::paginate()` macro with params and config for maximum per page results
 - Config file (*json-api.php*) with some configurable behavior of the package
+- 3rd parameter to `JsonApiCollection` class constructor for customise the resource that collects
+- `JsonApiResource::withAttributes()` method for add additional attributes from child resources
+- Laravel 7 compatibility
 
 ### Changed
 
@@ -22,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Pagination refresh on JsonApiCollection**
 - Composer suggested package: [spatie/laravel-json-api-paginate](https://github.com/spatie/laravel-json-api-paginate)
+- **Drop compatibility with unsupported Laravel 5.x versions**
 
 ## [1.2.1] - 2019-09-10
 
