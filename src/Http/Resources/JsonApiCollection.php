@@ -15,12 +15,13 @@ class JsonApiCollection extends ResourceCollection
      *
      * @param mixed     $resource
      * @param bool|null $authorise
+     * @param mixed|null $collects
      *
      * @return void
      */
-    public function __construct($resource, $authorise = null)
+    public function __construct($resource, $authorise = null, $collects = null)
     {
-        $this->collects = JsonApiResource::class;
+        $this->collects = $collects ?: JsonApiResource::class;
         $this->authorise = $authorise;
 
         parent::__construct($resource);
