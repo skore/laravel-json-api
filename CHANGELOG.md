@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 2020-07-02
+
+### Added
+
+- Normalize relationships names (check [config](https://github.com/skore/laravel-json-api/blob/master/config/json-api.php))
+
 ## [2.0.0] - 2020-04-21
 
 ### Added
