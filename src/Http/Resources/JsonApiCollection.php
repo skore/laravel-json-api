@@ -13,8 +13,8 @@ class JsonApiCollection extends ResourceCollection
     /**
      * Create a new resource instance.
      *
-     * @param mixed     $resource
-     * @param bool|null $authorise
+     * @param mixed      $resource
+     * @param bool|null  $authorise
      * @param mixed|null $collects
      *
      * @return void

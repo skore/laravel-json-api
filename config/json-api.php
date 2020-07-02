@@ -23,7 +23,7 @@ return [
 
     /**
      * This transforms all under the relationships
-     * like the following example:
+     * like the following example:.
      *
      * myRelation => my_relation
      */
