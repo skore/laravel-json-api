@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection as DatabaseCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 /**
  * @property mixed $resource
@@ -47,6 +48,10 @@ trait RelationshipsWithIncludes
         }, ARRAY_FILTER_USE_BOTH);
 
         foreach ($relations as $relation => $relationObj) {
+            if (config('json-api.normalize_relations', false)) {
+                $relation = Str::snake($relation);
+            }
+
             if ($relationObj instanceof DatabaseCollection) {
                 /** @var \Illuminate\Database\Eloquent\Model $relationModel */
                 foreach ($relationObj->all() as $relationModel) {

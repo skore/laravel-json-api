@@ -21,4 +21,12 @@ return [
         'view'    => false,
     ],
 
+    /**
+     * This transforms all under the relationships
+     * like the following example:
+     *
+     * myRelation => my_relation
+     */
+    'normalize_relations' => false,
+
 ];
