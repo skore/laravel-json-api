@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 /**
  * @property mixed $resource
  * @property array $with
- * @property bool $authorise
+ * @property bool  $authorise
  */
 trait RelationshipsWithIncludes
 {
@@ -144,11 +144,12 @@ trait RelationshipsWithIncludes
      * Get API resource from model.
      *
      * @param \Illuminate\Database\Eloquent\Model $model
+     *
      * @return string
      */
     protected function getModelResource(Model $model)
     {
-        return defined(get_class($model) . '::JSON_SERIALIZER')
+        return defined(get_class($model).'::JSON_SERIALIZER')
             ? $model::JSON_SERIALIZER
             : JsonApiResource::class;
     }
