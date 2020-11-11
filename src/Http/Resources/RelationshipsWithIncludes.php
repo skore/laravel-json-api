@@ -78,7 +78,9 @@ trait RelationshipsWithIncludes
      */
     protected function processModelRelation(Model $model)
     {
-        $modelResource = new JsonApiResource($model, $this->authorise);
+        $modelResourceClass = $this->getModelResource($model);
+        /** @var \SkoreLabs\JsonApi\Http\Resources\JsonApiResource $modelResource */
+        $modelResource = new $modelResourceClass($model, $this->authorise);
         $modelIdentifier = $modelResource->getResourceIdentifier();
 
         if (!empty(Arr::get($modelIdentifier, $model->getKeyName(), null))) {
@@ -136,5 +138,18 @@ trait RelationshipsWithIncludes
         return $collection->unique(static function ($resource) {
             return implode('', $resource->getResourceIdentifier());
         });
+    }
+
+    /**
+     * Get API resource from model.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @return string
+     */
+    protected function getModelResource(Model $model)
+    {
+        return defined(get_class($model) . '::JSON_SERIALIZER')
+            ? $model::JSON_SERIALIZER
+            : JsonApiResource::class;
     }
 }
