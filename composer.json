@@ -14,9 +14,9 @@
         }
     ],
     "require": {
-        "php": "^7.1",
-        "illuminate/http": "~5.5.0|^6.0|^7.0",
-        "illuminate/support": "~5.5.0|^6.0|^7.0"
+        "php": "^7.2",
+        "illuminate/http": "^6.0|^7.0|^8.0",
+        "illuminate/support": "^6.0|^7.0|^8.0"
     },
     "require-dev": {
         "ext-json": "*",
