@@ -7,10 +7,11 @@ class Builder
     /**
      * Paginate the given query using Json API.
      *
-     * @param  array  $columns
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @param array $columns
      *
      * @throws \InvalidArgumentException
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function jsonPaginate()
     {
@@ -19,7 +20,7 @@ class Builder
                 $perPage = $perPage ?: $this->model->getPerPage();
                 $clientPerPage = (int) request('page.size', config('json-api.pagination.default_size'));
 
-                if (! $perPage || $perPage < $clientPerPage) {
+                if (!$perPage || $perPage < $clientPerPage) {
                     $perPage = $clientPerPage;
                 }
 

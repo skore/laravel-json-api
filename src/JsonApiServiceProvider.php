@@ -3,8 +3,8 @@
 namespace SkoreLabs\JsonApi;
 
 use Illuminate\Database\Query\Builder;
-use SkoreLabs\JsonApi\Builder as JsonApiBuilder;
 use Illuminate\Support\ServiceProvider;
+use SkoreLabs\JsonApi\Builder as JsonApiBuilder;
 
 class JsonApiServiceProvider extends ServiceProvider
 {
@@ -21,7 +21,7 @@ class JsonApiServiceProvider extends ServiceProvider
             ], 'config');
         }
 
-        Builder::mixin(new JsonApiBuilder);
+        Builder::mixin(new JsonApiBuilder());
     }
 
     /**
