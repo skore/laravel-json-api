@@ -2,6 +2,8 @@
 
 namespace SkoreLabs\JsonApi;
 
+use Illuminate\Database\Query\Builder;
+use SkoreLabs\JsonApi\Builder as JsonApiBuilder;
 use Illuminate\Support\ServiceProvider;
 
 class JsonApiServiceProvider extends ServiceProvider
@@ -18,6 +20,8 @@ class JsonApiServiceProvider extends ServiceProvider
                 __DIR__.'/../config/json-api.php' => config_path('json-api.php'),
             ], 'config');
         }
+
+        Builder::mixin(new JsonApiBuilder);
     }
 
     /**
