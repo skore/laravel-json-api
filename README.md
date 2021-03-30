@@ -2,7 +2,7 @@
 
 <h1 align="center">Laravel JSON:API</h1>
 
-[![packagist version](https://img.shields.io/packagist/v/skore-labs/laravel-json-api)](https://packagist.org/packages/skore-labs/laravel-json-api) [![StyleCI](https://github.styleci.io/repos/198988581/shield?style=flat&branch=master)](https://github.styleci.io/repos/198988581) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/aa7cce89305c47f7bf9b0684b97e90ca)](https://www.codacy.com/app/d8vjork/laravel-json-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=skore/laravel-json-api&amp;utm_campaign=Badge_Grade)
+[![packagist version](https://img.shields.io/packagist/v/skore-labs/laravel-json-api)](https://packagist.org/packages/skore-labs/laravel-json-api) [![StyleCI](https://github.styleci.io/repos/198988581/shield?style=flat&branch=master)](https://github.styleci.io/repos/198988581) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/aa7cce89305c47f7bf9b0684b97e90ca)](https://www.codacy.com/app/d8vjork/laravel-json-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=skore/laravel-json-api&amp;utm_campaign=Badge_Grade) [![Scc Count Badge](https://sloc.xyz/github/skore/laravel-json-api?category=code)](https://github.com/skore/laravel-json-api) [![Scc Count Badge](https://sloc.xyz/github/skore/laravel-json-api?category=comments)](https://github.com/skore/laravel-json-api)
 
 Integrate JSON:API resources on Laravel.
 
@@ -64,13 +64,6 @@ return new JsonApiResource($user, true);
 - Relationships and nested working with [eager loading](https://laravel.com/docs/master/eloquent-relationships#eager-loading).
 - Permissions "out-of-the-box" authorising each resource view or list of resources.
 - Auto-hide not allowed attributes from responses like `user_id` or `post_id`.
-
-## Recommendations
-
-These packages are recommended (and suggested by the package installation) for a better integration with JSON:API standards:
-
-- [spatie/laravel-query-builder](https://github.com/spatie/laravel-query-builder)
-- [spatie/json-api-paginate](https://github.com/spatie/laravel-json-api-paginate)
 
 ## Credits
 
