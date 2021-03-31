@@ -15,20 +15,21 @@
     ],
     "require": {
         "php": "^7.2|^8.0",
-        "illuminate/http": "^6.0|^7.0|^8.0",
-        "illuminate/support": "^6.0|^7.0|^8.0"
+        "illuminate/http": "^6.0|^8.0",
+        "illuminate/support": "^6.0|^8.0"
     },
     "require-dev": {
         "ext-json": "*",
-        "orchestra/testbench": "~3.6.0|~3.7.0|~3.8.0",
-        "phpunit/phpunit": "^7.0|^8.0"
+        "orchestra/testbench": "^4.0|^6.0",
+        "phpunit/phpunit": "^7.0|^9.0"
     },
     "suggest": {
         "spatie/laravel-query-builder": "Allows to include data on your API responses following the JSON:API"
     },
     "autoload": {
         "psr-4": {
-            "SkoreLabs\\JsonApi\\": "src"
+            "SkoreLabs\\JsonApi\\": "src",
+            "SkoreLabs\\JsonApi\\Tests\\": "tests"
         }
     },
     "config": {
