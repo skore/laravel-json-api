@@ -14,14 +14,14 @@ class JsonApiCollectionTest extends TestCase
         Route::get('/', function () {
             return new JsonApiCollection(collect([
                 new Post([
-                    'id' => 5,
-                    'title' => 'Test Title',
+                    'id'       => 5,
+                    'title'    => 'Test Title',
                     'abstract' => 'Test abstract',
                 ]),
                 new Post([
-                    'id' => 6,
-                    'title' => 'Test Title 2'
-                ])
+                    'id'    => 6,
+                    'title' => 'Test Title 2',
+                ]),
             ]), true);
         });
 
@@ -32,21 +32,21 @@ class JsonApiCollectionTest extends TestCase
         $response->assertJson([
             'data' => [
                 [
-                    'id' => '5',
-                    'type' => 'post',
+                    'id'         => '5',
+                    'type'       => 'post',
                     'attributes' => [
-                        'title' => 'Test Title',
+                        'title'    => 'Test Title',
                         'abstract' => 'Test abstract',
-                    ]
+                    ],
                 ],
                 [
-                    'id' => '6',
-                    'type' => 'post',
+                    'id'         => '6',
+                    'type'       => 'post',
                     'attributes' => [
                         'title' => 'Test Title 2',
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ], true);
     }
 }

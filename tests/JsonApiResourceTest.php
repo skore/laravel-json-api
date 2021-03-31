@@ -13,8 +13,8 @@ class JsonApiResourceTest extends TestCase
     {
         Route::get('/', function () {
             return new JsonApiResource(new Post([
-                'id' => 5,
-                'title' => 'Test Title',
+                'id'       => 5,
+                'title'    => 'Test Title',
                 'abstract' => 'Test abstract',
             ]), true);
         });
@@ -25,12 +25,12 @@ class JsonApiResourceTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'id' => '5',
-                'type' => 'post',
+                'id'         => '5',
+                'type'       => 'post',
                 'attributes' => [
-                    'title' => 'Test Title',
+                    'title'    => 'Test Title',
                     'abstract' => 'Test abstract',
-                ]
+                ],
             ],
         ], true);
     }
@@ -38,8 +38,8 @@ class JsonApiResourceTest extends TestCase
     public function testResourcesMayBeConvertedToJsonApiWithToJsonMethod()
     {
         $resource = new JsonApiResource(new Post([
-            'id' => 5,
-            'title' => 'Test Title',
+            'id'       => 5,
+            'title'    => 'Test Title',
             'abstract' => 'Test abstract',
         ]), true);
 
@@ -50,13 +50,13 @@ class JsonApiResourceTest extends TestCase
     {
         Route::get('/', function () {
             $post = new Post([
-                'id' => 5,
-                'title' => 'Test Title',
+                'id'       => 5,
+                'title'    => 'Test Title',
                 'abstract' => 'Test abstract',
             ]);
 
             $post->setRelation('parent', new Post([
-                'id' => 4,
+                'id'    => 4,
                 'title' => 'Test Parent Title',
             ]));
 
@@ -69,30 +69,30 @@ class JsonApiResourceTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'id' => '5',
-                'type' => 'post',
+                'id'         => '5',
+                'type'       => 'post',
                 'attributes' => [
-                    'title' => 'Test Title',
+                    'title'    => 'Test Title',
                     'abstract' => 'Test abstract',
                 ],
                 'relationships' => [
                     'parent' => [
                         'data' => [
-                            'id' => '4',
-                            'type' => 'post'
-                        ]
-                    ]
-                ]
+                            'id'   => '4',
+                            'type' => 'post',
+                        ],
+                    ],
+                ],
             ],
             'included' => [
                 [
-                    'id' => '4',
-                    'type' => 'post',
+                    'id'         => '4',
+                    'type'       => 'post',
                     'attributes' => [
-                        'title' => 'Test Parent Title'
+                        'title' => 'Test Parent Title',
                     ],
-                ]
-            ]
+                ],
+            ],
         ], true);
     }
 
@@ -100,7 +100,7 @@ class JsonApiResourceTest extends TestCase
     {
         Route::get('/', function () {
             return new JsonApiResource(new Post([
-                'id' => 5,
+                'id'    => 5,
                 'title' => 'Test Title',
             ]));
         });

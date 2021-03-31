@@ -22,8 +22,8 @@ class Post extends Model
 
     /**
      * Return its parent post.
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo 
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function parent()
     {
