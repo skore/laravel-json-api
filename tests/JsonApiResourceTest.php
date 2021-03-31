@@ -35,16 +35,17 @@ class JsonApiResourceTest extends TestCase
         ], true);
     }
 
-    public function testResourcesMayBeConvertedToJsonApiWithToJsonMethod()
-    {
-        $resource = new JsonApiResource(new Post([
-            'id'       => 5,
-            'title'    => 'Test Title',
-            'abstract' => 'Test abstract',
-        ]), true);
+    // FIXME: Not available in Laravel 6, wait to support removal
+    // public function testResourcesMayBeConvertedToJsonApiWithToJsonMethod()
+    // {
+    //     $resource = new JsonApiResource(new Post([
+    //         'id'       => 5,
+    //         'title'    => 'Test Title',
+    //         'abstract' => 'Test abstract',
+    //     ]), true);
 
-        $this->assertSame('{"id":"5","type":"post","attributes":{"title":"Test Title","abstract":"Test abstract"}}', $resource->toJson());
-    }
+    //     $this->assertSame('{"id":"5","type":"post","attributes":{"title":"Test Title","abstract":"Test abstract"}}', $resource->toJson());
+    // }
 
     public function testResourcesWithRelationshipsMayBeConvertedToJsonApi()
     {
