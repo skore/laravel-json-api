@@ -65,6 +65,7 @@ class Assert implements Arrayable
     {
         try {
             $content = json_decode($response->getContent(), true);
+            PHPUnit::assertArrayHasKey('data', $content);
             $data = $content['data'];
             $collection = [];
             

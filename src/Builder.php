@@ -2,30 +2,30 @@
 
 namespace SkoreLabs\JsonApi;
 
+/**
+ * @mixin \Illuminate\Database\Query\Builder
+ */
 class Builder
 {
-    /**
-     * Paginate the given query using Json API.
-     *
-     * @param array $columns
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
     public function jsonPaginate()
     {
+        /**
+         * Paginate the given query using JSON:API.
+         *
+         * @param int|string $perPage
+         * @param array $columns
+         *
+         * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+         */
         return function ($perPage = null, $columns = ['*']) {
-            return function () use ($columns, $perPage) {
-                $perPage = $perPage ?: $this->model->getPerPage();
-                $clientPerPage = (int) request('page.size', config('json-api.pagination.default_size'));
+            $perPage = $perPage ?: $this->model->getPerPage();
+            $clientPerPage = (int) request('page.size', config('json-api.pagination.default_size'));
+            
+            if (!$perPage || $perPage < $clientPerPage) {
+                $perPage = $clientPerPage;
+            }
 
-                if (!$perPage || $perPage < $clientPerPage) {
-                    $perPage = $clientPerPage;
-                }
-
-                return $this->paginate($perPage, $columns, 'page[number]', (int) request('page.number'));
-            };
+            return $this->paginate($perPage, $columns, 'page[number]', (int) request('page.number'));
         };
     }
 }

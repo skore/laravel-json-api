@@ -59,6 +59,7 @@ class JsonApiCollectionTest extends TestCase
     {
         $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
             $json->at(0)->hasAttribute('title', 'Test Title');
+
             $json->at(1)->hasAttribute('title', 'Test Title 2');
         });
     }
