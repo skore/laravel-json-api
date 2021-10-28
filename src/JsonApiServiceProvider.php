@@ -3,8 +3,10 @@
 namespace SkoreLabs\JsonApi;
 
 use Illuminate\Database\Query\Builder;
+use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Support\ServiceProvider;
 use SkoreLabs\JsonApi\Builder as JsonApiBuilder;
+use SkoreLabs\JsonApi\Testing\TestResponseMacros;
 
 class JsonApiServiceProvider extends ServiceProvider
 {
@@ -32,5 +34,9 @@ class JsonApiServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/json-api.php', 'json-api');
+
+        if (class_exists(TestResponse::class)) {
+            TestResponse::mixin(new TestResponseMacros());
+        }
     }
 }

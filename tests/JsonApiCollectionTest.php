@@ -3,14 +3,16 @@
 namespace SkoreLabs\JsonApi\Tests;
 
 use Illuminate\Support\Facades\Route;
-use Orchestra\Testbench\TestCase;
 use SkoreLabs\JsonApi\Http\Resources\JsonApiCollection;
+use SkoreLabs\JsonApi\Testing\Assert;
 use SkoreLabs\JsonApi\Tests\Fixtures\Post;
 
 class JsonApiCollectionTest extends TestCase
 {
-    public function testCollectionsMayBeConvertedToJsonApi()
+    public function setUp(): void
     {
+        parent::setUp();
+
         Route::get('/', function () {
             return new JsonApiCollection(collect([
                 new Post([
@@ -24,7 +26,10 @@ class JsonApiCollectionTest extends TestCase
                 ]),
             ]), true);
         });
+    }
 
+    public function testCollectionsMayBeConvertedToJsonApi()
+    {
         $response = $this->get('/', ['Accept' => 'application/json']);
 
         $response->assertStatus(200);
@@ -48,5 +53,27 @@ class JsonApiCollectionTest extends TestCase
                 ],
             ],
         ], true);
+    }
+
+    public function testCollectionsAtHasAttribute()
+    {
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
+            $json->at(0)->hasAttribute('title', 'Test Title');
+            $json->at(1)->hasAttribute('title', 'Test Title 2');
+        });
+    }
+    
+    public function testCollectionsTakeByDefaultFirstItem()
+    {
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
+            $json->hasAttribute('title', 'Test Title');
+        });
+    }
+    
+    public function testCollectionsHasSize()
+    {
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
+            $json->hasSize(2);
+        });
     }
 }

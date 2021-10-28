@@ -3,8 +3,8 @@
 namespace SkoreLabs\JsonApi\Tests;
 
 use Illuminate\Support\Facades\Route;
-use Orchestra\Testbench\TestCase;
 use SkoreLabs\JsonApi\Http\Resources\JsonApiResource;
+use SkoreLabs\JsonApi\Testing\Assert;
 use SkoreLabs\JsonApi\Tests\Fixtures\Post;
 
 class JsonApiResourceTest extends TestCase
@@ -33,6 +33,54 @@ class JsonApiResourceTest extends TestCase
                 ],
             ],
         ], true);
+    }
+
+    public function testResourcesHasIdentifier()
+    {
+        Route::get('/', function () {
+            return new JsonApiResource(new Post([
+                'id'       => 5,
+                'title'    => 'Test Title',
+                'abstract' => 'Test abstract',
+            ]), true);
+        });
+
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
+            $json->hasId(5)->hasType('post');
+        });
+    }
+
+    public function testResourcesHasAttribute()
+    {
+        Route::get('/', function () {
+            return new JsonApiResource(new Post([
+                'id'       => 5,
+                'title'    => 'Test Title',
+                'abstract' => 'Test abstract',
+            ]), true);
+        });
+
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
+            $json->hasAttribute('title', 'Test Title');
+        });
+    }
+
+    public function testResourcesHasAttributes()
+    {
+        Route::get('/', function () {
+            return new JsonApiResource(new Post([
+                'id'       => 5,
+                'title'    => 'Test Title',
+                'abstract' => 'Test abstract',
+            ]), true);
+        });
+
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
+            $json->hasAttributes([
+                'title'    => 'Test Title',
+                'abstract' => 'Test abstract',
+            ]);
+        });
     }
 
     // FIXME: Not available in Laravel 6, wait to support removal
@@ -95,6 +143,56 @@ class JsonApiResourceTest extends TestCase
                 ],
             ],
         ], true);
+    }
+
+    public function testResourcesHasRelationshipWith()
+    {
+        Route::get('/', function () {
+            $post = new Post([
+                'id'       => 5,
+                'title'    => 'Test Title',
+                'abstract' => 'Test abstract',
+            ]);
+
+            $post->setRelation('parent', new Post([
+                'id'    => 4,
+                'title' => 'Test Parent Title',
+            ]));
+
+            return new JsonApiResource($post, true);
+        });
+
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
+            $json->hasRelationshipWith(new Post([
+                'id'    => 4,
+                'title' => 'Test Parent Title',
+            ]), true);
+        });
+    }
+
+    public function testResourcesAtRelationHasAttribute()
+    {
+        Route::get('/', function () {
+            $post = new Post([
+                'id'       => 5,
+                'title'    => 'Test Title',
+                'abstract' => 'Test abstract',
+            ]);
+
+            $post->setRelation('parent', new Post([
+                'id'    => 4,
+                'title' => 'Test Parent Title',
+            ]));
+
+            return new JsonApiResource($post, true);
+        });
+
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
+            $json->atRelation(new Post([
+                'id'    => 4,
+                'title' => 'Test Parent Title',
+            ]))->hasAttribute('title', 'Test Parent Title');
+        });
     }
 
     public function testResourcesMayNotBeConvertedToJsonApiWithoutPermissions()
