@@ -63,14 +63,14 @@ class JsonApiCollectionTest extends TestCase
             $json->at(1)->hasAttribute('title', 'Test Title 2');
         });
     }
-    
+
     public function testCollectionsTakeByDefaultFirstItem()
     {
         $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
             $json->hasAttribute('title', 'Test Title');
         });
     }
-    
+
     public function testCollectionsHasSize()
     {
         $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {

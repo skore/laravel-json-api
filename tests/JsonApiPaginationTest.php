@@ -31,13 +31,13 @@ class JsonApiPaginationTest extends TestCase
 
     protected function defineDatabaseMigrations()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
     }
 
     public function testJsonApiPaginationWithPageSize()
     {
         $response = $this->getJson('/posts?page[size]=2');
-        
+
         $response->assertJsonApi(function (Assert $json) {
             $json->hasSize(2);
         });

@@ -6,8 +6,8 @@ interface JsonApiable
 {
     /**
      * Get a custom resource type for JSON:API formatting.
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function resourceType(): string;
 }

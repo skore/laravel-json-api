@@ -6,18 +6,18 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Traits\Macroable;
 use PHPUnit\Framework\Assert as PHPUnit;
 use PHPUnit\Framework\AssertionFailedError;
-use SkoreLabs\JsonApi\Testing\Concerns\HasRelationships;
 use SkoreLabs\JsonApi\Testing\Concerns\HasAttributes;
 use SkoreLabs\JsonApi\Testing\Concerns\HasCollections;
 use SkoreLabs\JsonApi\Testing\Concerns\HasIdentifications;
+use SkoreLabs\JsonApi\Testing\Concerns\HasRelationships;
 
 class Assert implements Arrayable
 {
-    use HasIdentifications,
-        HasAttributes,
-        HasRelationships,
-        HasCollections,
-        Macroable;
+    use HasIdentifications;
+    use HasAttributes;
+    use HasRelationships;
+    use HasCollections;
+    use Macroable;
 
     /**
      * @var string
@@ -38,7 +38,7 @@ class Assert implements Arrayable
      * @var array
      */
     protected $relationships;
-    
+
     /**
      * @var array
      */
@@ -68,7 +68,7 @@ class Assert implements Arrayable
             PHPUnit::assertArrayHasKey('data', $content);
             $data = $content['data'];
             $collection = [];
-            
+
             if (static::isCollection($data)) {
                 $collection = $data;
                 $data = head($data);

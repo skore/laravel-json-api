@@ -4,18 +4,19 @@ namespace SkoreLabs\JsonApi\Support;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use SkoreLabs\JsonApi\Contracts\JsonApiable;
 use SkoreLabs\JsonApi\Http\Resources\JsonApiCollection;
 use SkoreLabs\JsonApi\Http\Resources\JsonApiResource;
-use Illuminate\Support\Str;
 
 class JsonApi
 {
     /**
      * Format the input contents to JSON:API.
-     * 
-     * @param mixed $value 
-     * @return \SkoreLabs\JsonApi\Http\Resources\JsonApiResource 
+     *
+     * @param mixed $value
+     *
+     * @return \SkoreLabs\JsonApi\Http\Resources\JsonApiResource
      */
     public static function format($value)
     {
@@ -28,9 +29,10 @@ class JsonApi
 
     /**
      * Get resource type from a model.
-     * 
-     * @param \Illuminate\Database\Eloquent\Model|string $model 
-     * @return string 
+     *
+     * @param \Illuminate\Database\Eloquent\Model|string $model
+     *
+     * @return string
      */
     public static function getResourceType($model)
     {
