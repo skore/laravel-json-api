@@ -6,6 +6,15 @@
 
 Integrate JSON:API resources on Laravel.
 
+## Features
+
+- Compatible and tested with all the Laravel LTS supported versions ([see them here](https://laravel.com/docs/master/releases#support-policy))
+- Full formatting using pure built-in model methods and properties.
+- Relationships and nested working with [eager loading](https://laravel.com/docs/master/eloquent-relationships#eager-loading).
+- Permissions "out-of-the-box" authorising each resource view or list of resources.
+- Auto-hide not allowed attributes from responses like `user_id` or `post_id`.
+- Own testing utilities built-in Laravel's ones to make integration tests easier.
+
 ## Installation
 
 You can install the package via composer:
@@ -14,7 +23,7 @@ You can install the package via composer:
 composer require skore-labs/laravel-json-api
 ```
 
-### Usage
+## Usage
 
 As simple as importing the class `SkoreLabs\JsonApi\Http\Resources\JsonApiCollection` for collections or `SkoreLabs\JsonApi\Http\Resources\JsonApiResource` for resources.
 
@@ -43,6 +52,34 @@ class UserController extends Controller
 }
 ```
 
+### Custom resource type
+
+To customise the resource type of a model you should do like this:
+
+```php
+<?php
+
+namespace SkoreLabs\JsonApi\Tests\Fixtures;
+
+use Illuminate\Database\Eloquent\Model;
+use SkoreLabs\JsonApi\Contracts\JsonApiable;
+
+class Post extends Model implements JsonApiable
+{
+    /**
+     * Get a custom resource type for JSON:API formatting.
+     * 
+     * @return string 
+     */
+    public function resourceType(): string
+    {
+        return 'custom-post';
+    }
+}
+```
+
+**Note: Just remember to check the allowed types in [the oficial JSON:API spec](https://jsonapi.org/format/#document-member-names).**
+
 ### Authorisation
 
 For authorize a resource or collection you'll need the `view` and `viewAny` on the **model policy**, which you can create passing the model to the make command:
@@ -58,12 +95,44 @@ Alternatively, you can pass an authorisation (boolean) to the constructor of the
 return new JsonApiResource($user, true);
 ```
 
-## Features
+## Testing
 
-- Full formatting using pure built-in model methods and properties.
-- Relationships and nested working with [eager loading](https://laravel.com/docs/master/eloquent-relationships#eager-loading).
-- Permissions "out-of-the-box" authorising each resource view or list of resources.
-- Auto-hide not allowed attributes from responses like `user_id` or `post_id`.
+```php
+public function testGetPostApi()
+{
+    $this->get('/posts/1')->assertJsonApi(function (Assert $json) {
+        $json->hasId(1)
+            ->hasType('post')
+            ->hasAttribute('title', 'My summer vacation');
+    });
+}
+```
+
+### Collections
+
+In case of a test that **receives a JSON:API collection** as a response, **the first item will be the defaulted** on all the methods that tests **attributes and relationships**.
+
+In case you want to access a specific item you have the `at` method:
+
+```php
+public function testGetPostsListApi()
+{
+    $this->get('/posts')->assertJsonApi(function (Assert $json) {
+        // We're testing the first post here!
+        $json->hasId(1)
+            ->hasType('post')
+            ->hasAttribute('title', 'My summer vacation @ Italy');
+
+        // Now we want to test the second post of the collection
+        $json->at(1)
+            ->hasId(2)
+            ->hasType('post')
+            ->hasAttribute('title', 'What is really great for your diet');
+    });
+}
+```
+
+**Note: Remember that this method takes in mind the array keys, so the first item is at 0, not 1!**
 
 ## Credits
 
