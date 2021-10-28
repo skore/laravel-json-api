@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.0] - 2021-10-28
+
 ## Added
 
-- Json API pagination to `Illuminate\Database\Query\Builder` class
+- JSON:API pagination to `Illuminate\Database\Query\Builder` class
+- Testing utilities (as macros of `Illuminate\Foundation\Testing\TestResponse`): `hasId`, `hasType`, `hasAttribute`, `hasAttributes`, `atRelation`, `hasRelationshipWith`, `hasAnyRelationships`, `at`, `hasSize`
+- `SkoreLabs\JsonApi\Support\JsonApi` utilities facade
+- `SkoreLabs\JsonApi\Contracts\JsonApiable` contract interface for custom resource types
 
 ## [3.0.1] - 2021-01-20
 
