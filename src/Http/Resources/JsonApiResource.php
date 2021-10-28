@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\MissingValue;
 use Illuminate\Support\Str;
 use SkoreLabs\JsonApi\Concerns\HasConfig;
+use SkoreLabs\JsonApi\Support\JsonApi;
 
 class JsonApiResource extends JsonResource
 {
@@ -81,7 +82,7 @@ class JsonApiResource extends JsonResource
     {
         return [
             $this->resource->getKeyName() => (string) $this->resource->getKey(),
-            'type'                        => Str::snake(class_basename($this->resource)),
+            'type'                        => JsonApi::getResourceType($this->resource),
         ];
     }
 
