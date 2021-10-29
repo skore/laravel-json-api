@@ -2,8 +2,9 @@
 
 namespace SkoreLabs\JsonApi;
 
+use Illuminate\Foundation\Testing\TestResponse as LegacyTestResponse;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Foundation\Testing\TestResponse;
+use Illuminate\Testing\TestResponse;
 use Illuminate\Support\ServiceProvider;
 use SkoreLabs\JsonApi\Builder as JsonApiBuilder;
 use SkoreLabs\JsonApi\Testing\TestResponseMacros;
@@ -35,8 +36,22 @@ class JsonApiServiceProvider extends ServiceProvider
 
         $this->mergeConfigFrom(__DIR__.'/../config/json-api.php', 'json-api');
 
+        $this->registerTestingMacros();
+    }
+
+    protected function registerTestingMacros()
+    {
         if (class_exists(TestResponse::class)) {
             TestResponse::mixin(new TestResponseMacros());
+
+            return;
+        }
+        
+        // Laravel <= 6.0
+        if (class_exists(LegacyTestResponse::class)) {
+            LegacyTestResponse::mixin(new TestResponseMacros());
+
+            return;
         }
     }
 }
