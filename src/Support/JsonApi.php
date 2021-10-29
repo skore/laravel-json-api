@@ -40,6 +40,6 @@ class JsonApi
             return $model->resourceType();
         }
 
-        return Str::snake(class_basename(is_string($model) ? $model : $model::class));
+        return Str::snake(class_basename(is_string($model) ? $model : get_class($model)));
     }
 }
