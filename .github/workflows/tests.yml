@@ -10,20 +10,22 @@ jobs:
       fail-fast: true
       matrix:
         os: [ ubuntu-latest ]
+        php: [7.4, 8.0, 8.1]
         laravel: [ 6.*, 8.*, 9.* ]
         dependency-version: [ prefer-stable ]
+        exclude:
+          # PHP 7 is not compatible with Laravel 9 and future releases!
+          - laravel: 9.*
+            php: 7.4
         include:
           - laravel: 6.*
             testbench: 4.*
-            php: [7.4, 8.0, 8.1]
 
           - laravel: 8.*
             testbench: 6.*
-            php: [7.4, 8.0, 8.1]
           
           - laravel: 9.*
             testbench: 7.*
-            php: [8.0, 8.1]
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
