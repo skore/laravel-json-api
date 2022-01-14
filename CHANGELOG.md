@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Testing utilities with more useful failure messages and docblocks
 - PHPStan for static analysis (Github full integration still in progress...)
 - Tests to some nested relationships
-- Code analysis thanks to @codecov
+- Code analysis thanks to @codacy
 
 ## Changed
 
