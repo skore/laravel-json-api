@@ -29,7 +29,7 @@ class Post extends Model
     {
         return $this->belongsTo(self::class);
     }
-    
+
     /**
      * Get its author user.
      *

@@ -16,8 +16,9 @@ trait HasCollections
 
     /**
      * Get resource based on its zero-based position in the collection.
-     * 
-     * @param int $position 
+     *
+     * @param int $position
+     *
      * @return $this|\SkoreLabs\JsonApi\Testing\Concerns\HasCollections
      */
     public function at(int $position)
@@ -37,8 +38,9 @@ trait HasCollections
 
     /**
      * Assert the number of resources that are at the collection.
-     *  
-     * @param int $value 
+     *
+     * @param int $value
+     *
      * @return $this
      */
     public function count(int $value)
@@ -50,8 +52,9 @@ trait HasCollections
 
     /**
      * Assert the number of resources that are at the collection (alias of count).
-     *  
-     * @param int $value 
+     *
+     * @param int $value
+     *
      * @return $this
      */
     public function hasSize(int $value)

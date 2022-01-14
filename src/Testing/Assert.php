@@ -73,9 +73,10 @@ class Assert implements Arrayable
 
     /**
      * Check if data contains a collection of resources.
-     * 
-     * @param array $data 
-     * @return bool 
+     *
+     * @param array $data
+     *
+     * @return bool
      */
     public static function isCollection(array $data = [])
     {
@@ -84,19 +85,20 @@ class Assert implements Arrayable
 
     /**
      * Get the identifier in a pretty printable message by id and type.
-     * 
-     * @param mixed $id 
-     * @param string $type 
-     * @return string 
+     *
+     * @param mixed  $id
+     * @param string $type
+     *
+     * @return string
      */
     protected function getIdentifierMessageFor($id = null, string $type = null)
     {
         $messagePrefix = '{ id: %s, type: "%s" }';
 
         if (!$id && !$type) {
-            return sprintf($messagePrefix.' at position %d', (string)$this->id, $this->type, $this->atPosition);
+            return sprintf($messagePrefix.' at position %d', (string) $this->id, $this->type, $this->atPosition);
         }
 
-        return sprintf($messagePrefix, (string)$id, $type);
+        return sprintf($messagePrefix, (string) $id, $type);
     }
 }

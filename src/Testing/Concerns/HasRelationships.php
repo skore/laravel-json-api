@@ -23,9 +23,10 @@ trait HasRelationships
 
     /**
      * Assert on the related resource by its model instance.
-     * 
-     * @param \Illuminate\Database\Eloquent\Model $model 
-     * @return \SkoreLabs\JsonApi\Testing\Concerns\HasRelationships 
+     *
+     * @param \Illuminate\Database\Eloquent\Model $model
+     *
+     * @return \SkoreLabs\JsonApi\Testing\Concerns\HasRelationships
      */
     public function atRelation(Model $model)
     {
@@ -38,10 +39,11 @@ trait HasRelationships
 
     /**
      * Assert that a resource has any relationship and included (optional) by type.
-     * 
-     * @param mixed $name 
-     * @param bool $withIncluded 
-     * @return $this 
+     *
+     * @param mixed $name
+     * @param bool  $withIncluded
+     *
+     * @return $this
      */
     public function hasAnyRelationships($name, $withIncluded = false)
     {
@@ -59,13 +61,14 @@ trait HasRelationships
 
         return $this;
     }
-    
+
     /**
      * Assert that a resource does not have any relationship and included (optional) by type.
-     * 
-     * @param mixed $name 
-     * @param bool $withIncluded 
-     * @return $this 
+     *
+     * @param mixed $name
+     * @param bool  $withIncluded
+     *
+     * @return $this
      */
     public function hasNotAnyRelationships($name, $withIncluded = false)
     {
@@ -86,10 +89,11 @@ trait HasRelationships
 
     /**
      * Assert that a resource has any relationship and included (optional) by model instance.
-     * 
-     * @param \Illuminate\Database\Eloquent\Model $model 
-     * @param bool $withIncluded 
-     * @return $this 
+     *
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param bool                                $withIncluded
+     *
+     * @return $this
      */
     public function hasRelationshipWith(Model $model, $withIncluded = false)
     {
@@ -110,10 +114,11 @@ trait HasRelationships
 
     /**
      * Assert that a resource does not have any relationship and included (optional) by model instance.
-     * 
-     * @param \Illuminate\Database\Eloquent\Model $model 
-     * @param bool $withIncluded 
-     * @return $this 
+     *
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param bool                                $withIncluded
+     *
+     * @return $this
      */
     public function hasNotRelationshipWith(Model $model, $withIncluded = false)
     {

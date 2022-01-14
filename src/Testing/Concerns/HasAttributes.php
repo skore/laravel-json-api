@@ -16,10 +16,11 @@ trait HasAttributes
 
     /**
      * Assert that a resource has an attribute with name and value (optional).
-     * 
-     * @param mixed $name 
-     * @param mixed $value 
-     * @return $this 
+     *
+     * @param mixed $name
+     * @param mixed $value
+     *
+     * @return $this
      */
     public function hasAttribute($name, $value = null)
     {
@@ -34,9 +35,10 @@ trait HasAttributes
 
     /**
      * Assert that a resource has an array of attributes with names and values (optional).
-     * 
-     * @param mixed $attributes 
-     * @return $this 
+     *
+     * @param mixed $attributes
+     *
+     * @return $this
      */
     public function hasAttributes($attributes)
     {
