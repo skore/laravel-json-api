@@ -15,7 +15,12 @@ class JsonApiPaginationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp(): void
+    /**
+     * Setup the test environment.
+     *
+     * @return void
+     */
+    protected function setUp(): void
     {
         parent::setUp();
 

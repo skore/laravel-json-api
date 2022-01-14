@@ -19,6 +19,11 @@ class JsonApiAuthorisationTest extends TestCase
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
     }
 
+    /**
+     * Setup the test environment.
+     *
+     * @return void
+     */
     protected function setUp(): void
     {
         parent::setUp();

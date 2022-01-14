@@ -9,7 +9,12 @@ use SkoreLabs\JsonApi\Tests\Fixtures\Post;
 
 class JsonApiCollectionTest extends TestCase
 {
-    public function setUp(): void
+    /**
+     * Setup the test environment.
+     *
+     * @return void
+     */
+    protected function setUp(): void
     {
         parent::setUp();
 
