@@ -17,7 +17,7 @@ class JsonApiResource extends JsonResource
     /**
      * The resource instance.
      *
-     * @var \Illuminate\Database\Eloquent\Model
+     * @var \Illuminate\Database\Eloquent\Model|\Illuminate\Pagination\AbstractPaginator
      */
     public $resource;
 
