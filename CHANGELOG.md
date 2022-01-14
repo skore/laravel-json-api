@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.0] - 2022-01-14
+
+## Added
+
+- Laravel 9 support
+- Testing utilities with more useful failure messages and docblocks
+- PHPStan for static analysis (Github full integration still in progress...)
+- Tests to some nested relationships
+- Code analysis thanks to @codecov
+
+## Changed
+
+- `hasSize` renamed to `count` (original will be still maintained as an alias)
+- Internal package API: Moved `Assert` props to traits
+
 ## [3.1.0] - 2021-10-28
 
 ## Added
