@@ -9,9 +9,9 @@ class Post extends Model
     /**
      * The attributes that should be visible in serialization.
      *
-     * @var array
+     * @var string[]
      */
-    protected $visible = ['title', 'abstract'];
+    protected $visible = ['title', 'abstract', 'user_id'];
 
     /**
      * The attributes that aren't mass assignable.
@@ -21,13 +21,23 @@ class Post extends Model
     protected $guarded = [];
 
     /**
-     * Return its parent post.
+     * Get its parent post.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function parent()
     {
         return $this->belongsTo(self::class);
+    }
+    
+    /**
+     * Get its author user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function author()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**

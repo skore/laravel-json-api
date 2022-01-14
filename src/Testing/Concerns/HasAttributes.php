@@ -9,6 +9,18 @@ use PHPUnit\Framework\Assert as PHPUnit;
  */
 trait HasAttributes
 {
+    /**
+     * @var array
+     */
+    protected $attributes;
+
+    /**
+     * Assert that a resource has an attribute with name and value (optional).
+     * 
+     * @param mixed $name 
+     * @param mixed $value 
+     * @return $this 
+     */
     public function hasAttribute($name, $value = null)
     {
         PHPUnit::assertArrayHasKey($name, $this->attributes, sprintf('JSON:API response does not have an attribute named "%s"', $name));
@@ -20,6 +32,12 @@ trait HasAttributes
         return $this;
     }
 
+    /**
+     * Assert that a resource has an array of attributes with names and values (optional).
+     * 
+     * @param mixed $attributes 
+     * @return $this 
+     */
     public function hasAttributes($attributes)
     {
         foreach ($attributes as $name => $value) {

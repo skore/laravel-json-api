@@ -20,31 +20,6 @@ class Assert implements Arrayable
     use Macroable;
 
     /**
-     * @var string
-     */
-    protected $id;
-
-    /**
-     * @var string
-     */
-    protected $type;
-
-    /**
-     * @var array
-     */
-    protected $attributes;
-
-    /**
-     * @var array
-     */
-    protected $relationships;
-
-    /**
-     * @var array
-     */
-    protected $includeds;
-
-    /**
      * @var array
      */
     protected $collection;
@@ -80,19 +55,48 @@ class Assert implements Arrayable
             PHPUnit::assertArrayHasKey('attributes', $data);
             PHPUnit::assertIsArray($data['attributes']);
         } catch (AssertionFailedError $e) {
-            PHPUnit::fail('Not a valid JSON:API response.');
+            PHPUnit::fail('Not a valid JSON:API response or response data is empty.');
         }
 
         return new self($data['id'], $data['type'], $data['attributes'], $data['relationships'] ?? [], $content['included'] ?? [], $collection);
     }
 
+    /**
+     * Get the instance as an array.
+     *
+     * @return array
+     */
     public function toArray(): array
     {
         return $this->attributes;
     }
 
+    /**
+     * Check if data contains a collection of resources.
+     * 
+     * @param array $data 
+     * @return bool 
+     */
     public static function isCollection(array $data = [])
     {
         return !array_key_exists('attributes', $data);
+    }
+
+    /**
+     * Get the identifier in a pretty printable message by id and type.
+     * 
+     * @param mixed $id 
+     * @param string $type 
+     * @return string 
+     */
+    protected function getIdentifierMessageFor($id = null, string $type = null)
+    {
+        $messagePrefix = '{ id: %s, type: "%s" }';
+
+        if (!$id && !$type) {
+            return sprintf($messagePrefix.' at position %d', (string)$this->id, $this->type, $this->atPosition);
+        }
+
+        return sprintf($messagePrefix, (string)$id, $type);
     }
 }
