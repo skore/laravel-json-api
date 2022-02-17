@@ -10,7 +10,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ ubuntu-latest ]
-        php: [7.4, 8.0, 8.1]
+        php: [ 7.4, 8.0, 8.1 ]
         laravel: [ 6.*, 8.*, 9.* ]
         dependency-version: [ prefer-stable ]
         exclude:
@@ -34,7 +34,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -42,6 +42,17 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, intl, exif
           coverage: pcov
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-${{ matrix.dependency-version }}-
 
       - name: Install dependencies
         run: |
