@@ -17,8 +17,8 @@ trait HasAttributes
     /**
      * Assert that a resource has an attribute with name and value (optional).
      *
-     * @param mixed $name
-     * @param mixed $value
+     * @param int|string $name
+     * @param array<string>|string $value
      *
      * @return $this
      */
@@ -27,7 +27,7 @@ trait HasAttributes
         PHPUnit::assertArrayHasKey($name, $this->attributes, sprintf('JSON:API response does not have an attribute named "%s"', $name));
 
         if ($value) {
-            PHPUnit::assertContains($value, $this->attributes, sprintf('JSON:API response does not have an attribute named "%s" with value "%s"', $name, $value));
+            PHPUnit::assertContains($value, $this->attributes, sprintf('JSON:API response does not have an attribute named "%s" with value "%s"', $name, json_encode($value)));
         }
 
         return $this;
