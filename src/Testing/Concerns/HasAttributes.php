@@ -17,7 +17,7 @@ trait HasAttributes
     /**
      * Assert that a resource has an attribute with name and value (optional).
      *
-     * @param int|string $name
+     * @param int|string           $name
      * @param array<string>|string $value
      *
      * @return $this
