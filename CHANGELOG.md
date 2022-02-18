@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.3] - 2022-02-18
+
+### Changed
+
+- Suggested package from Spatie's to our own, read further here: https://github.com/skore/laravel-query-builder#important
+
 ## [3.2.2] - 2022-02-17
 
 ### Fixed
