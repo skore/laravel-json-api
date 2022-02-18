@@ -26,7 +26,7 @@
         "orchestra/testbench": "^4.0|^6.0|^7.0"
     },
     "suggest": {
-        "spatie/laravel-query-builder": "Allows to include data on your API responses following the JSON:API"
+        "skorelabs/laravel-query-builder": "Allows to include data on your API responses following the JSON:API"
     },
     "autoload": {
         "psr-4": {

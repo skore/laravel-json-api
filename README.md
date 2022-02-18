@@ -23,6 +23,12 @@ You can install the package via composer:
 composer require skore-labs/laravel-json-api
 ```
 
+### Extra steps (important notice)
+
+Although the package doesn't require anything else to make it work, is recommended to use a package like `spatie/laravel-query-builder`.
+
+Though for some limitations (they removed the ability to append attributes), you should check this fork we did and maintain: [skorelabs/laravel-query-builder](https://github.com/skore/laravel-query-builder)
+
 ## Usage
 
 As simple as importing the class `SkoreLabs\JsonApi\Http\Resources\JsonApiCollection` for collections or `SkoreLabs\JsonApi\Http\Resources\JsonApiResource` for resources.
