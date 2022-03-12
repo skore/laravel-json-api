@@ -85,7 +85,7 @@ class JsonApiCollectionTest extends TestCase
             $jsonApi->hasSize(2);
         });
     }
-    
+
     public function testCollectionsAtUnreachablePosition()
     {
         $this->expectException(AssertionFailedError::class);
@@ -94,7 +94,7 @@ class JsonApiCollectionTest extends TestCase
             $jsonApi->at(10);
         });
     }
-    
+
     public function testCollectionsToArrayReturnsArray()
     {
         $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $jsonApi) {
