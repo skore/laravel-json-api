@@ -84,7 +84,7 @@ class JsonApiCollectionTest extends TestCase
             $jsonApi->hasSize(2);
         });
     }
-    
+
     public function testCollectionsToArrayReturnsArray()
     {
         $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $jsonApi) {

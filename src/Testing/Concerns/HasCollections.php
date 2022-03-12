@@ -18,7 +18,7 @@ trait HasCollections
      * Get resource based on its zero-based position in the collection.
      *
      * @param int $position
-     * 
+     *
      * @return \SkoreLabs\JsonApi\Testing\Assert
      */
     public function at(int $position)

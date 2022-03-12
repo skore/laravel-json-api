@@ -246,7 +246,7 @@ class JsonApiResourceTest extends TestCase
         $this->expectException(AssertionFailedError::class);
 
         $response->assertJsonApi(function (Assert $jsonApi) {
-            // 
+            //
         });
     }
 }

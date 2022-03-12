@@ -14,7 +14,7 @@ class JsonApiRelationshipsTest extends TestCase
      * @var \SkoreLabs\JsonApi\Tests\Fixtures\Post
      */
     protected $authoredPost;
-    
+
     /**
      * @var \SkoreLabs\JsonApi\Tests\Fixtures\Post
      */
@@ -39,9 +39,9 @@ class JsonApiRelationshipsTest extends TestCase
             ]);
 
             $this->authoredPost->setRelation('author', new User([
-                'id' => 1,
-                'name' => 'Myself',
-                'email' => 'me@internet.org',
+                'id'       => 1,
+                'name'     => 'Myself',
+                'email'    => 'me@internet.org',
                 'password' => '1234',
             ]));
 
