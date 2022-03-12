@@ -10,6 +10,9 @@ use SkoreLabs\JsonApi\Testing\Assert;
 use SkoreLabs\JsonApi\Tests\Fixtures\Post;
 use SkoreLabs\JsonApi\Tests\Fixtures\User;
 
+/**
+ * @group requiresDatabase
+ */
 class JsonApiAuthorisationTest extends TestCase
 {
     use RefreshDatabase;

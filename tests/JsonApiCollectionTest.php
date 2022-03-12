@@ -3,6 +3,7 @@
 namespace SkoreLabs\JsonApi\Tests;
 
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Framework\AssertionFailedError;
 use SkoreLabs\JsonApi\Support\JsonApi;
 use SkoreLabs\JsonApi\Testing\Assert;
 use SkoreLabs\JsonApi\Tests\Fixtures\Post;
@@ -84,7 +85,16 @@ class JsonApiCollectionTest extends TestCase
             $jsonApi->hasSize(2);
         });
     }
+    
+    public function testCollectionsAtUnreachablePosition()
+    {
+        $this->expectException(AssertionFailedError::class);
 
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $jsonApi) {
+            $jsonApi->at(10);
+        });
+    }
+    
     public function testCollectionsToArrayReturnsArray()
     {
         $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $jsonApi) {
