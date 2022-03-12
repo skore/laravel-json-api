@@ -69,7 +69,7 @@ class JsonApiResource extends JsonResource
     protected function evaluateResponse()
     {
         return !is_array($this->resource)
-            && !is_null($this->resource)
+            && $this->resource !== null
             && !$this->resource instanceof MissingValue;
     }
 
@@ -96,7 +96,7 @@ class JsonApiResource extends JsonResource
         return array_filter(
             array_merge($this->resource->attributesToArray(), $this->withAttributes()),
             function ($value, $key) {
-                return !Str::endsWith($key, '_id') && $key !== $this->resource->getKeyName() && !is_null($value);
+                return !Str::endsWith($key, '_id') && $key !== $this->resource->getKeyName() && $value !== null;
             },
             ARRAY_FILTER_USE_BOTH
         );

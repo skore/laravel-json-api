@@ -16,7 +16,7 @@ trait HasConfig
         $configArr = config('json-api.authorisable');
         $defaultConfigValue = false;
 
-        return is_array($configArr) && !is_null($key)
+        return is_array($configArr) && $key !== null
             ? ($configArr[$key] ?? $defaultConfigValue)
             : $configArr ?? $defaultConfigValue;
     }

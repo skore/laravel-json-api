@@ -11,7 +11,7 @@ class TestResponseMacros
         return function (Closure $callback = null) {
             $assert = Assert::fromTestResponse($this);
 
-            if (is_null($callback)) {
+            if ($callback === null) {
                 return $this;
             }
 

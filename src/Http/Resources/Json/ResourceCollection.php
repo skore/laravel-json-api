@@ -32,7 +32,7 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
      *
      * @var bool
      */
-    protected $preserveAllQueryParameters = false;
+    protected $preserveQueryParameters = false;
 
     /**
      * The query parameters that should be added to the pagination links.
@@ -60,7 +60,7 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
      */
     public function preserveQuery()
     {
-        $this->preserveAllQueryParameters = true;
+        $this->preserveQueryParameters = true;
 
         return $this;
     }
@@ -74,7 +74,7 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
      */
     public function withQuery(array $query)
     {
-        $this->preserveAllQueryParameters = false;
+        $this->preserveQueryParameters = false;
 
         $this->queryParameters = $query;
 
@@ -128,9 +128,9 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
      */
     protected function preparePaginatedResponse($request)
     {
-        if ($this->preserveAllQueryParameters) {
+        if ($this->preserveQueryParameters) {
             $this->resource->appends($request->query());
-        } elseif (!is_null($this->queryParameters)) {
+        } elseif ($this->queryParameters !== null) {
             $this->resource->appends($this->queryParameters);
         }
 
