@@ -29,8 +29,6 @@ class JsonApiAuthorisationTest extends TestCase
         parent::setUp();
 
         Gate::define('view', function (User $user, Post $post) {
-            var_dump("hello I'm a policy!", $post->id);
-
             return $post->user_id === $user->id;
         });
 
