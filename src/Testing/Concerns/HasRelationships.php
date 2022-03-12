@@ -26,7 +26,7 @@ trait HasRelationships
      *
      * @param \Illuminate\Database\Eloquent\Model $model
      *
-     * @return \SkoreLabs\JsonApi\Testing\Concerns\HasRelationships
+     * @return \SkoreLabs\JsonApi\Testing\Assert
      */
     public function atRelation(Model $model)
     {

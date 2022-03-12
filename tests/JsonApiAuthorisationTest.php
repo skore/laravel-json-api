@@ -75,9 +75,9 @@ class JsonApiAuthorisationTest extends TestCase
 
         $this->actingAs($user);
 
-        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) use ($firstPost, $secondPost) {
-            $json->at(0)->hasRelationshipWith($firstPost, true);
-            $json->at(1)->hasRelationshipWith($secondPost, true);
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $jsonApi) use ($firstPost, $secondPost) {
+            $jsonApi->at(0)->hasRelationshipWith($firstPost, true);
+            $jsonApi->at(1)->hasRelationshipWith($secondPost, true);
         });
     }
 
@@ -119,11 +119,11 @@ class JsonApiAuthorisationTest extends TestCase
 
         $response = $this->get('/restricted', ['Accept' => 'application/json']);
 
-        $response->assertJsonApi(function (Assert $json) use ($firstPost, $secondPost) {
-            $json->count(2);
+        $response->assertJsonApi(function (Assert $jsonApi) use ($firstPost, $secondPost) {
+            $jsonApi->count(2);
 
-            $json->at(0)->hasNotRelationshipWith($firstPost, true);
-            $json->at(1)->hasRelationshipWith($secondPost, true);
+            $jsonApi->at(0)->hasNotRelationshipWith($firstPost, true);
+            $jsonApi->at(1)->hasRelationshipWith($secondPost, true);
         });
     }
 }

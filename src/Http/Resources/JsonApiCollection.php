@@ -15,7 +15,7 @@ class JsonApiCollection extends ResourceCollection
      *
      * @param mixed      $resource
      * @param bool|null  $authorise
-     * @param mixed|null $collects
+     * @param class-string<\SkoreLabs\JsonApi\Http\Resources\JsonApiResource>|null $collects
      *
      * @return void
      */

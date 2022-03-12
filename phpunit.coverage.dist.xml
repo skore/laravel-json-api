@@ -19,6 +19,7 @@
     <exclude>
       <directory suffix=".php">src/Support/Facades</directory>
       <directory suffix=".php">src/Contracts</directory>
+      <file>src/JsonApiServiceProvider.php</file>
     </exclude>
     <report>
       <clover outputFile="clover.xml"/>

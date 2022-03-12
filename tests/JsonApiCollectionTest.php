@@ -64,24 +64,34 @@ class JsonApiCollectionTest extends TestCase
 
     public function testCollectionsAtHasAttribute()
     {
-        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
-            $json->at(0)->hasAttribute('title', 'Test Title');
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $jsonApi) {
+            $jsonApi->at(0)->hasAttribute('title', 'Test Title');
 
-            $json->at(1)->hasAttribute('title', 'Test Title 2');
+            $jsonApi->at(1)->hasAttribute('title', 'Test Title 2');
         });
     }
 
     public function testCollectionsTakeByDefaultFirstItem()
     {
-        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
-            $json->hasAttribute('title', 'Test Title');
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $jsonApi) {
+            $jsonApi->hasAttribute('title', 'Test Title');
         });
     }
 
     public function testCollectionsHasSize()
     {
-        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
-            $json->hasSize(2);
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $jsonApi) {
+            $jsonApi->hasSize(2);
+        });
+    }
+    
+    public function testCollectionsToArrayReturnsArray()
+    {
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $jsonApi) {
+            $responseArray = $jsonApi->toArray();
+
+            $this->assertIsArray($responseArray);
+            $this->assertFalse(empty($responseArray), 'toArray() should not be empty');
         });
     }
 }

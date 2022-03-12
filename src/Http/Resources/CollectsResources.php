@@ -7,12 +7,15 @@ use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
+/**
+ * @mixin \SkoreLabs\JsonApi\Http\Resources\JsonApiCollection
+ */
 trait CollectsResources
 {
     /**
      * Map the given collection resource into its individual resources.
      *
-     * @param mixed $resource
+     * @param \Illuminate\Http\Resources\MissingValue|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection $resource
      *
      * @return mixed
      */

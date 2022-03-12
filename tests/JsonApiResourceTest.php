@@ -2,7 +2,9 @@
 
 namespace SkoreLabs\JsonApi\Tests;
 
+use Illuminate\Http\Resources\MissingValue;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Framework\AssertionFailedError;
 use SkoreLabs\JsonApi\Support\JsonApi;
 use SkoreLabs\JsonApi\Testing\Assert;
 use SkoreLabs\JsonApi\Tests\Fixtures\Post;
@@ -49,8 +51,8 @@ class JsonApiResourceTest extends TestCase
             ]));
         });
 
-        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
-            $json->hasId(5)->hasType('post');
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $jsonApi) {
+            $jsonApi->hasId(5)->hasType('post');
         });
     }
 
@@ -66,8 +68,8 @@ class JsonApiResourceTest extends TestCase
             ]));
         });
 
-        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
-            $json->hasAttribute('title', 'Test Title');
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $jsonApi) {
+            $jsonApi->hasAttribute('title', 'Test Title');
         });
     }
 
@@ -83,8 +85,8 @@ class JsonApiResourceTest extends TestCase
             ]));
         });
 
-        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
-            $json->hasAttributes([
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $jsonApi) {
+            $jsonApi->hasAttributes([
                 'title'    => 'Test Title',
                 'abstract' => 'Test abstract',
             ]);
@@ -174,8 +176,8 @@ class JsonApiResourceTest extends TestCase
             return JsonApi::format($post);
         });
 
-        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
-            $json->hasRelationshipWith(new Post([
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $jsonApi) {
+            $jsonApi->hasRelationshipWith(new Post([
                 'id'    => 4,
                 'title' => 'Test Parent Title',
             ]), true);
@@ -201,8 +203,8 @@ class JsonApiResourceTest extends TestCase
             return JsonApi::format($post);
         });
 
-        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
-            $json->atRelation(new Post([
+        $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $jsonApi) {
+            $jsonApi->atRelation(new Post([
                 'id'    => 4,
                 'title' => 'Test Parent Title',
             ]))->hasAttribute('title', 'Test Parent Title');
@@ -225,5 +227,26 @@ class JsonApiResourceTest extends TestCase
         $response->assertExactJson([
             'data' => [],
         ]);
+    }
+
+    public function testResourcesMayReturnEmptyDataWhenMissingIsGiven()
+    {
+        Route::get('/', function () {
+            return JsonApi::format(new MissingValue());
+        });
+
+        $response = $this->get('/', ['Accept' => 'application/json']);
+
+        $response->assertStatus(200);
+
+        $response->assertExactJson([
+            'data' => [],
+        ]);
+
+        $this->expectException(AssertionFailedError::class);
+
+        $response->assertJsonApi(function (Assert $jsonApi) {
+            // 
+        });
     }
 }

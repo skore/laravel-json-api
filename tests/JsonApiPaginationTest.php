@@ -43,8 +43,8 @@ class JsonApiPaginationTest extends TestCase
     {
         $response = $this->getJson('/posts?page[size]=2');
 
-        $response->assertJsonApi(function (Assert $json) {
-            $json->hasSize(2);
+        $response->assertJsonApi(function (Assert $jsonApi) {
+            $jsonApi->hasSize(2);
         });
 
         $response->assertStatus(200);

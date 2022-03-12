@@ -16,7 +16,7 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
     /**
      * The resource that this resource collects.
      *
-     * @var string
+     * @var class-string<\SkoreLabs\JsonApi\Http\Resources\JsonApiResource>
      */
     public $collects;
 
