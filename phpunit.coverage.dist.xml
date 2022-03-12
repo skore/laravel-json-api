@@ -16,6 +16,10 @@
     <include>
       <directory suffix=".php">./src</directory>
     </include>
+    <exclude>
+      <directory suffix=".php">app/Support/Facades</directory>
+      <directory suffix=".php">app/Contracts</directory>
+    </exclude>
     <report>
       <clover outputFile="clover.xml"/>
     </report>
