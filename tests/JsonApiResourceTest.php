@@ -12,7 +12,7 @@ class JsonApiResourceTest extends TestCase
     public function testResourcesMayBeConvertedToJsonApi()
     {
         $this->bypassPolicies();
-        
+
         Route::get('/', function () {
             return JsonApi::format(new Post([
                 'id'       => 5,
@@ -40,7 +40,7 @@ class JsonApiResourceTest extends TestCase
     public function testResourcesHasIdentifier()
     {
         $this->bypassPolicies();
-        
+
         Route::get('/', function () {
             return JsonApi::format(new Post([
                 'id'       => 5,
@@ -57,7 +57,7 @@ class JsonApiResourceTest extends TestCase
     public function testResourcesHasAttribute()
     {
         $this->bypassPolicies();
-        
+
         Route::get('/', function () {
             return JsonApi::format(new Post([
                 'id'       => 5,
@@ -74,7 +74,7 @@ class JsonApiResourceTest extends TestCase
     public function testResourcesHasAttributes()
     {
         $this->bypassPolicies();
-        
+
         Route::get('/', function () {
             return JsonApi::format(new Post([
                 'id'       => 5,
@@ -106,7 +106,7 @@ class JsonApiResourceTest extends TestCase
     public function testResourcesWithRelationshipsMayBeConvertedToJsonApi()
     {
         $this->bypassPolicies();
-        
+
         Route::get('/', function () {
             $post = new Post([
                 'id'       => 5,
@@ -158,7 +158,7 @@ class JsonApiResourceTest extends TestCase
     public function testResourcesHasRelationshipWith()
     {
         $this->bypassPolicies();
-        
+
         Route::get('/', function () {
             $post = new Post([
                 'id'       => 5,
@@ -185,7 +185,7 @@ class JsonApiResourceTest extends TestCase
     public function testResourcesAtRelationHasAttribute()
     {
         $this->bypassPolicies();
-        
+
         Route::get('/', function () {
             $post = new Post([
                 'id'       => 5,
