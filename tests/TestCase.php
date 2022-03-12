@@ -13,4 +13,16 @@ abstract class TestCase extends Orchestra
             JsonApiServiceProvider::class,
         ];
     }
+
+    protected function bypassPolicies()
+    {
+        config([
+            'json-api.authorisable' => [
+                'view' => true,
+                'viewAny' => true
+            ]
+        ]);
+
+        return $this;
+    }
 }

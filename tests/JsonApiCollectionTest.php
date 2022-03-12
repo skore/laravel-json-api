@@ -3,7 +3,7 @@
 namespace SkoreLabs\JsonApi\Tests;
 
 use Illuminate\Support\Facades\Route;
-use SkoreLabs\JsonApi\Http\Resources\JsonApiCollection;
+use SkoreLabs\JsonApi\Support\JsonApi;
 use SkoreLabs\JsonApi\Testing\Assert;
 use SkoreLabs\JsonApi\Tests\Fixtures\Post;
 
@@ -18,8 +18,10 @@ class JsonApiCollectionTest extends TestCase
     {
         parent::setUp();
 
+        $this->bypassPolicies();
+
         Route::get('/', function () {
-            return new JsonApiCollection(collect([
+            return JsonApi::format(collect([
                 new Post([
                     'id'       => 5,
                     'title'    => 'Test Title',
@@ -29,7 +31,7 @@ class JsonApiCollectionTest extends TestCase
                     'id'    => 6,
                     'title' => 'Test Title 2',
                 ]),
-            ]), true);
+            ]));
         });
     }
 

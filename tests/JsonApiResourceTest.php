@@ -3,7 +3,7 @@
 namespace SkoreLabs\JsonApi\Tests;
 
 use Illuminate\Support\Facades\Route;
-use SkoreLabs\JsonApi\Http\Resources\JsonApiResource;
+use SkoreLabs\JsonApi\Support\JsonApi;
 use SkoreLabs\JsonApi\Testing\Assert;
 use SkoreLabs\JsonApi\Tests\Fixtures\Post;
 
@@ -11,12 +11,14 @@ class JsonApiResourceTest extends TestCase
 {
     public function testResourcesMayBeConvertedToJsonApi()
     {
+        $this->bypassPolicies();
+        
         Route::get('/', function () {
-            return new JsonApiResource(new Post([
+            return JsonApi::format(new Post([
                 'id'       => 5,
                 'title'    => 'Test Title',
                 'abstract' => 'Test abstract',
-            ]), true);
+            ]));
         });
 
         $response = $this->get('/', ['Accept' => 'application/json']);
@@ -37,12 +39,14 @@ class JsonApiResourceTest extends TestCase
 
     public function testResourcesHasIdentifier()
     {
+        $this->bypassPolicies();
+        
         Route::get('/', function () {
-            return new JsonApiResource(new Post([
+            return JsonApi::format(new Post([
                 'id'       => 5,
                 'title'    => 'Test Title',
                 'abstract' => 'Test abstract',
-            ]), true);
+            ]));
         });
 
         $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
@@ -52,12 +56,14 @@ class JsonApiResourceTest extends TestCase
 
     public function testResourcesHasAttribute()
     {
+        $this->bypassPolicies();
+        
         Route::get('/', function () {
-            return new JsonApiResource(new Post([
+            return JsonApi::format(new Post([
                 'id'       => 5,
                 'title'    => 'Test Title',
                 'abstract' => 'Test abstract',
-            ]), true);
+            ]));
         });
 
         $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
@@ -67,12 +73,14 @@ class JsonApiResourceTest extends TestCase
 
     public function testResourcesHasAttributes()
     {
+        $this->bypassPolicies();
+        
         Route::get('/', function () {
-            return new JsonApiResource(new Post([
+            return JsonApi::format(new Post([
                 'id'       => 5,
                 'title'    => 'Test Title',
                 'abstract' => 'Test abstract',
-            ]), true);
+            ]));
         });
 
         $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
@@ -86,7 +94,7 @@ class JsonApiResourceTest extends TestCase
     // FIXME: Not available in Laravel 6, wait to support removal
     // public function testResourcesMayBeConvertedToJsonApiWithToJsonMethod()
     // {
-    //     $resource = new JsonApiResource(new Post([
+    //     $resource = JsonApi::format(new Post([
     //         'id'       => 5,
     //         'title'    => 'Test Title',
     //         'abstract' => 'Test abstract',
@@ -97,6 +105,8 @@ class JsonApiResourceTest extends TestCase
 
     public function testResourcesWithRelationshipsMayBeConvertedToJsonApi()
     {
+        $this->bypassPolicies();
+        
         Route::get('/', function () {
             $post = new Post([
                 'id'       => 5,
@@ -109,7 +119,7 @@ class JsonApiResourceTest extends TestCase
                 'title' => 'Test Parent Title',
             ]));
 
-            return new JsonApiResource($post, true);
+            return JsonApi::format($post);
         });
 
         $response = $this->get('/', ['Accept' => 'application/json']);
@@ -147,6 +157,8 @@ class JsonApiResourceTest extends TestCase
 
     public function testResourcesHasRelationshipWith()
     {
+        $this->bypassPolicies();
+        
         Route::get('/', function () {
             $post = new Post([
                 'id'       => 5,
@@ -159,7 +171,7 @@ class JsonApiResourceTest extends TestCase
                 'title' => 'Test Parent Title',
             ]));
 
-            return new JsonApiResource($post, true);
+            return JsonApi::format($post);
         });
 
         $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
@@ -172,6 +184,8 @@ class JsonApiResourceTest extends TestCase
 
     public function testResourcesAtRelationHasAttribute()
     {
+        $this->bypassPolicies();
+        
         Route::get('/', function () {
             $post = new Post([
                 'id'       => 5,
@@ -184,7 +198,7 @@ class JsonApiResourceTest extends TestCase
                 'title' => 'Test Parent Title',
             ]));
 
-            return new JsonApiResource($post, true);
+            return JsonApi::format($post);
         });
 
         $this->get('/', ['Accept' => 'application/json'])->assertJsonApi(function (Assert $json) {
@@ -198,7 +212,7 @@ class JsonApiResourceTest extends TestCase
     public function testResourcesMayNotBeConvertedToJsonApiWithoutPermissions()
     {
         Route::get('/', function () {
-            return new JsonApiResource(new Post([
+            return JsonApi::format(new Post([
                 'id'    => 5,
                 'title' => 'Test Title',
             ]));
