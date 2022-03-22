@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.4] - 2022-03-22
+
+### Fixed
+
+- Assert testing utilities with hasMany relationships
+
 ## [3.2.3] - 2022-02-18
 
 ### Changed
