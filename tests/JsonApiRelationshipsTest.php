@@ -81,7 +81,7 @@ class JsonApiRelationshipsTest extends TestCase
             $jsonApi->at(0)->hasNotRelationshipWith($this->lonelyPost, true);
         });
     }
-    
+
     /**
      * @group requiresDatabase
      */
@@ -122,7 +122,7 @@ class JsonApiRelationshipsTest extends TestCase
                     'password' => '1234',
                 ])->id
             );
-            
+
             $this->authoredPost->save();
 
             return JsonApi::format($this->authoredPost->refresh()->loadMissing('author', 'tags'));

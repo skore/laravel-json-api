@@ -147,11 +147,12 @@ trait HasRelationships
 
     /**
      * Filter array of resources by a provided identifier.
-     * 
-     * @param array $resources 
-     * @param string $type 
-     * @param mixed $id 
-     * @return array 
+     *
+     * @param array  $resources
+     * @param string $type
+     * @param mixed  $id
+     *
+     * @return array
      */
     protected function filterResources(array $resources, string $type, $id = null)
     {
@@ -162,15 +163,16 @@ trait HasRelationships
 
     /**
      * Filter provided resource with given identifier.
-     * 
-     * @param array $resource 
-     * @param string $type 
-     * @param mixed $id 
-     * @return bool 
+     *
+     * @param array  $resource
+     * @param string $type
+     * @param mixed  $id
+     *
+     * @return bool
      */
     protected function filterResourceWithIdentifier(array $resource, string $type, $id = null)
     {
-        if (is_array($resource) && ! isset($resource['type'])) {
+        if (is_array($resource) && !isset($resource['type'])) {
             return count($this->filterResources($resource, $type, $id)) > 0;
         }
 

@@ -19,7 +19,7 @@ class CreateTagsTable extends Migration
             $table->string('slug')->unique();
             $table->timestamps();
         });
-        
+
         Schema::create('post_tag', static function (Blueprint $table) {
             $table->bigInteger('id')->primary();
             $table->unsignedBigInteger('post_id')->nullable();
