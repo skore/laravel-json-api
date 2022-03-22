@@ -49,14 +49,16 @@ trait HasRelationships
     {
         $type = JsonApi::getResourceType($name);
 
-        PHPUnit::assertTrue(count(array_filter($this->relationships, function ($relation) use ($type) {
-            return $relation['data']['type'] === $type;
-        })) > 0);
+        PHPUnit::assertTrue(
+            count($this->filterResources($this->relationships, $type)) > 0,
+            sprintf('There is not any relationship with type "%s"', $type)
+        );
 
         if ($withIncluded) {
-            PHPUnit::assertTrue(count(array_filter($this->includeds, function ($included) use ($type) {
-                return $included['type'] === $type;
-            })) > 0);
+            PHPUnit::assertTrue(
+                count($this->filterResources($this->includeds, $type)) > 0,
+                sprintf('There is not any relationship with type "%s"', $type)
+            );
         }
 
         return $this;
@@ -74,14 +76,16 @@ trait HasRelationships
     {
         $type = JsonApi::getResourceType($name);
 
-        PHPUnit::assertFalse(count(array_filter($this->relationships, function ($relation) use ($type) {
-            return $relation['data']['type'] === $type;
-        })) > 0, sprintf('There is a relationship with type "%s" for resource "%s"', $type, $this->getIdentifierMessageFor()));
+        PHPUnit::assertFalse(
+            count($this->filterResources($this->relationships, $type)) > 0,
+            sprintf('There is a relationship with type "%s" for resource "%s"', $type, $this->getIdentifierMessageFor())
+        );
 
         if ($withIncluded) {
-            PHPUnit::assertFalse(count(array_filter($this->includeds, function ($included) use ($type) {
-                return $included['type'] === $type;
-            })) > 0, sprintf('There is a included relationship with type "%s"', $type));
+            PHPUnit::assertFalse(
+                count($this->filterResources($this->includeds, $type)) > 0,
+                sprintf('There is a included relationship with type "%s"', $type)
+            );
         }
 
         return $this;
@@ -99,14 +103,16 @@ trait HasRelationships
     {
         $type = JsonApi::getResourceType($model);
 
-        PHPUnit::assertTrue(count(array_filter($this->relationships, function ($relation) use ($type, $model) {
-            return $relation['data']['type'] === $type && $relation['data']['id'] == $model->getKey();
-        })) > 0, sprintf('There is no relationship "%s" for resource "%s"', $this->getIdentifierMessageFor($model->getKey(), $type), $this->getIdentifierMessageFor()));
+        PHPUnit::assertTrue(
+            count($this->filterResources($this->relationships, $type, $model->getKey())) > 0,
+            sprintf('There is no relationship "%s" for resource "%s"', $this->getIdentifierMessageFor($model->getKey(), $type), $this->getIdentifierMessageFor())
+        );
 
         if ($withIncluded) {
-            PHPUnit::assertTrue(count(array_filter($this->includeds, function ($included) use ($type, $model) {
-                return $included['type'] === $type && $included['id'] == $model->getKey();
-            })) > 0, sprintf('There is no included relationship "%s"', $this->getIdentifierMessageFor($model->getKey(), $type)));
+            PHPUnit::assertTrue(
+                count($this->filterResources($this->includeds, $type, $model->getKey())) > 0,
+                sprintf('There is no included relationship "%s"', $this->getIdentifierMessageFor($model->getKey(), $type))
+            );
         }
 
         return $this;
@@ -124,16 +130,56 @@ trait HasRelationships
     {
         $type = JsonApi::getResourceType($model);
 
-        PHPUnit::assertFalse(count(array_filter($this->relationships, function ($relation) use ($type, $model) {
-            return $relation['data']['type'] === $type && $relation['data']['id'] == $model->getKey();
-        })) > 0, sprintf('There is a relationship "%s" for resource "%s"', $this->getIdentifierMessageFor($model->getKey(), $type), $this->getIdentifierMessageFor()));
+        PHPUnit::assertFalse(
+            count($this->filterResources($this->relationships, $type, $model->getKey())) > 0,
+            sprintf('There is a relationship "%s" for resource "%s"', $this->getIdentifierMessageFor($model->getKey(), $type), $this->getIdentifierMessageFor())
+        );
 
         if ($withIncluded) {
-            PHPUnit::assertFalse(count(array_filter($this->includeds, function ($included) use ($type, $model) {
-                return $included['type'] === $type && $included['id'] == $model->getKey();
-            })) > 0, sprintf('There is a included relationship "%s"', $this->getIdentifierMessageFor($model->getKey(), $type)));
+            PHPUnit::assertFalse(
+                count($this->filterResources($this->includeds, $type, $model->getKey())) > 0,
+                sprintf('There is a included relationship "%s"', $this->getIdentifierMessageFor($model->getKey(), $type))
+            );
         }
 
         return $this;
+    }
+
+    /**
+     * Filter array of resources by a provided identifier.
+     * 
+     * @param array $resources 
+     * @param string $type 
+     * @param mixed $id 
+     * @return array 
+     */
+    protected function filterResources(array $resources, string $type, $id = null)
+    {
+        return array_filter($resources, function ($resource) use ($type, $id) {
+            return $this->filterResourceWithIdentifier($resource, $type, $id);
+        });
+    }
+
+    /**
+     * Filter provided resource with given identifier.
+     * 
+     * @param array $resource 
+     * @param string $type 
+     * @param mixed $id 
+     * @return bool 
+     */
+    protected function filterResourceWithIdentifier(array $resource, string $type, $id = null)
+    {
+        if (is_array($resource) && ! isset($resource['type'])) {
+            return count($this->filterResources($resource, $type, $id)) > 0;
+        }
+
+        $condition = $resource['type'] === $type;
+
+        if ($id) {
+            $condition &= $resource['id'] == $id;
+        }
+
+        return (bool) $condition;
     }
 }
