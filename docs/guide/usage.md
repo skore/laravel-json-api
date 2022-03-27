@@ -1,5 +1,5 @@
 ::: tip
-We strongly recommend to use another package to manage the requests filtering, sorting, appending, etc. Check [Using with another libraries](another_libraries.md).
+We strongly recommend to use another package to manage the requests filtering, sorting, appending, etc. Check [Implementations](implementations.md).
 :::
 
 # Usage

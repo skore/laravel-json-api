@@ -68,15 +68,6 @@ export default defineUserConfig<DefaultThemeOptions>({
           ]
         },
         // {
-        //   text: 'Advanced topics',
-        //   children: [
-        //     {
-        //       text: 'TypeScript',
-        //       link: '/guide/typescript.md'
-        //     },
-        //   ]
-        // },
-        // {
         //   text: 'Upgrading',
         //   link: '/guide/upgrading.md'
         // },
