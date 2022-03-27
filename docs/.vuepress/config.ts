@@ -35,6 +35,7 @@ export default defineUserConfig<DefaultThemeOptions>({
           },
           '/guide/usage.md',
           '/guide/testing.md',
+          '/guide/implementations.md',
         ],
       },
       {
@@ -61,8 +62,8 @@ export default defineUserConfig<DefaultThemeOptions>({
               link: '/guide/testing.md'
             },
             {
-              text: 'Other libraries',
-              link: '/guide/another_libraries.md'
+              text: 'Implementations',
+              link: '/guide/implementations.md'
             },
           ]
         },
