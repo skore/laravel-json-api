@@ -19,7 +19,7 @@ export default defineUserConfig<DefaultThemeOptions>({
   themeConfig: {
     logo: 'https://skore-public-assets.s3.eu-west-2.amazonaws.com/skore-logo-2x.png',
 
-    repo: 'skorelabs/laravel-json-api',
+    repo: 'skore/laravel-json-api',
 
     navbar: [
       {
