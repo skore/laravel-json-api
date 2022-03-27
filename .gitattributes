@@ -1,0 +1,8 @@
+* text=auto
+*.css linguist-vendored
+*.scss linguist-vendored
+*.js linguist-vendored
+CHANGELOG.md export-ignore
+*.lock -diff
+*.min.js -diff
+*.min.css -diff
