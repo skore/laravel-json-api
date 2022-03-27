@@ -17,7 +17,7 @@ export default defineUserConfig<DefaultThemeOptions>({
 
   theme: '@vuepress/theme-default',
   themeConfig: {
-    logo: 'https://vuejs.org/images/logo.png',
+    logo: 'https://skore-public-assets.s3.eu-west-2.amazonaws.com/skore-logo-2x.png',
 
     repo: 'skorelabs/laravel-json-api',
 
