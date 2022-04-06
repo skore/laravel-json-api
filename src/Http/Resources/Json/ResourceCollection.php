@@ -86,7 +86,7 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return $this->collection->count();
     }
@@ -96,7 +96,7 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return array
+     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
     {
@@ -112,7 +112,7 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
      */
     public function toResponse($request)
     {
-        if ($this->resource instanceof AbstractPaginator) {
+        if ($this->resource instanceof AbstractPaginator || $this->resource instanceof AbstractCursorPaginator) {
             return $this->preparePaginatedResponse($request);
         }
 
