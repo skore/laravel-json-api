@@ -4,6 +4,7 @@ namespace SkoreLabs\JsonApi\Http\Resources\Json;
 
 use Countable;
 use Illuminate\Http\Resources\Json\PaginatedResourceResponse;
+use Illuminate\Pagination\AbstractCursorPaginator;
 use Illuminate\Pagination\AbstractPaginator;
 use IteratorAggregate;
 use SkoreLabs\JsonApi\Http\Resources\CollectsResources;
