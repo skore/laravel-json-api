@@ -3,6 +3,8 @@ name: Publish docs
 on:
   push:
     branches: [master]
+    paths:
+      - 'docs/**'
   # trigger deployment manually
   workflow_dispatch:
 

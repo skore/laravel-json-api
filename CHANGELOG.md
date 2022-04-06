@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.5] - 2022-04-06
+
+### Fixed
+
+- Pagination handling when cursor pagination is being used on resources
+- Minor removals of warnings and deprecations on newer versions of PHP
+
 ## [3.2.4] - 2022-03-22
 
 ### Fixed
