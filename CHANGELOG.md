@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.6] - 2022-05-17
+
+### Fixed
+
+- Missing app container binding for support facade usage
+
 ## [3.2.5] - 2022-04-06
 
 ### Fixed
