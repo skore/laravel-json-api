@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\TestResponse as LegacyTestResponse;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Testing\TestResponse;
 use SkoreLabs\JsonApi\Builder as JsonApiBuilder;
+use SkoreLabs\JsonApi\Support\JsonApi;
 use SkoreLabs\JsonApi\Testing\TestResponseMacros;
 
 class JsonApiServiceProvider extends ServiceProvider
@@ -35,6 +36,10 @@ class JsonApiServiceProvider extends ServiceProvider
         Builder::mixin(new JsonApiBuilder());
 
         $this->mergeConfigFrom(__DIR__.'/../config/json-api.php', 'json-api');
+
+        $this->app->singleton('json-api', function () {
+            return new JsonApi();
+        });
 
         $this->registerTestingMacros();
     }
