@@ -47,20 +47,20 @@ class JsonApiRelationshipsTest extends TestCase
     {
         Route::get('/', function () {
             $this->authoredPost = new Post([
-                'id'       => 5,
-                'title'    => 'Test Title',
+                'id' => 5,
+                'title' => 'Test Title',
                 'abstract' => 'Test abstract',
             ]);
 
             $this->authoredPost->setRelation('author', new User([
-                'id'       => 1,
-                'name'     => 'Myself',
-                'email'    => 'me@internet.org',
+                'id' => 1,
+                'name' => 'Myself',
+                'email' => 'me@internet.org',
                 'password' => '1234',
             ]));
 
             $this->lonelyPost = new Post([
-                'id'    => 6,
+                'id' => 6,
                 'title' => 'Test Title 2',
             ]);
 
@@ -117,8 +117,8 @@ class JsonApiRelationshipsTest extends TestCase
 
             $this->authoredPost->author()->associate(
                 User::create([
-                    'name'     => 'Myself',
-                    'email'    => 'me@internet.org',
+                    'name' => 'Myself',
+                    'email' => 'me@internet.org',
                     'password' => '1234',
                 ])->id
             );

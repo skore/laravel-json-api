@@ -22,8 +22,7 @@ trait HasIdentifications
     /**
      * Assert that a resource has the specified ID.
      *
-     * @param mixed $value
-     *
+     * @param  mixed  $value
      * @return $this
      */
     public function hasId($value)
@@ -38,8 +37,7 @@ trait HasIdentifications
     /**
      * Check that a resource has the specified type.
      *
-     * @param mixed $value
-     *
+     * @param  mixed  $value
      * @return $this
      */
     public function hasType($value)

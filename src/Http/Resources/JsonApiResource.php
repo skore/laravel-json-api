@@ -24,9 +24,8 @@ class JsonApiResource extends JsonResource
     /**
      * Create a new resource instance.
      *
-     * @param mixed     $resource
-     * @param bool|null $authorise
-     *
+     * @param  mixed  $resource
+     * @param  bool|null  $authorise
      * @return void
      */
     public function __construct($resource, $authorise = null)
@@ -44,8 +43,7 @@ class JsonApiResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function toArray($request)
@@ -53,7 +51,7 @@ class JsonApiResource extends JsonResource
         if ($this->evaluateResponse()) {
             return [
                 $this->merge($this->getResourceIdentifier()),
-                'attributes'    => $this->getAttributes(),
+                'attributes' => $this->getAttributes(),
                 'relationships' => $this->when($this->relationships, $this->relationships),
             ];
         }
@@ -68,9 +66,9 @@ class JsonApiResource extends JsonResource
      */
     protected function evaluateResponse()
     {
-        return !is_array($this->resource)
+        return ! is_array($this->resource)
             && $this->resource !== null
-            && !$this->resource instanceof MissingValue;
+            && ! $this->resource instanceof MissingValue;
     }
 
     /**
@@ -82,7 +80,7 @@ class JsonApiResource extends JsonResource
     {
         return [
             $this->resource->getKeyName() => (string) $this->resource->getKey(),
-            'type'                        => JsonApi::getResourceType($this->resource),
+            'type' => JsonApi::getResourceType($this->resource),
         ];
     }
 
@@ -96,7 +94,7 @@ class JsonApiResource extends JsonResource
         return array_filter(
             array_merge($this->resource->attributesToArray(), $this->withAttributes()),
             function ($value, $key) {
-                return !Str::endsWith($key, '_id') && $key !== $this->resource->getKeyName() && $value !== null;
+                return ! Str::endsWith($key, '_id') && $key !== $this->resource->getKeyName() && $value !== null;
             },
             ARRAY_FILTER_USE_BOTH
         );

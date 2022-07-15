@@ -7,8 +7,7 @@ trait HasConfig
     /**
      * Get authorisable from the app config.
      *
-     * @param mixed|null $key
-     *
+     * @param  mixed|null  $key
      * @return bool|null
      */
     protected function getAuthorisableConfig($key = null)

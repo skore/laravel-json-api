@@ -37,8 +37,7 @@ trait RelationshipsWithIncludes
     /**
      * Attach relationships to the resource.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return void
      */
     protected function attachRelations(Model $model)
@@ -72,8 +71,7 @@ trait RelationshipsWithIncludes
     /**
      * Process a model relation attaching to its model additional attributes.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return array
      */
     protected function processModelRelation(Model $model)
@@ -83,7 +81,7 @@ trait RelationshipsWithIncludes
         $modelResource = new $modelResourceClass($model, $this->authorise);
         $modelIdentifier = $modelResource->getResourceIdentifier();
 
-        if (!empty(Arr::get($modelIdentifier, $model->getKeyName(), null))) {
+        if (! empty(Arr::get($modelIdentifier, $model->getKeyName(), null))) {
             $this->addIncluded($modelResource);
 
             return $modelIdentifier;
@@ -96,7 +94,6 @@ trait RelationshipsWithIncludes
      * Set included data to resource's with.
      *
      * @param $resource
-     *
      * @return void
      */
     protected function addIncluded(JsonApiResource $resource)
@@ -111,7 +108,7 @@ trait RelationshipsWithIncludes
             $includesCol
         )->values()->all();
 
-        if (!empty($includesArr)) {
+        if (! empty($includesArr)) {
             Arr::set($this->with, $this->getIncludedConfig(), $includesArr);
         }
     }
@@ -130,7 +127,6 @@ trait RelationshipsWithIncludes
      * Check and return unique resources on a collection.
      *
      * @param \Illuminate\Support\Collection
-     *
      * @return \Illuminate\Support\Collection
      */
     protected function checkUniqueness(Collection $collection)
@@ -143,8 +139,7 @@ trait RelationshipsWithIncludes
     /**
      * Get API resource from model.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return string
      */
     protected function getModelResource(Model $model)
