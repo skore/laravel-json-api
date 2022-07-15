@@ -13,9 +13,10 @@ class JsonApiCollection extends ResourceCollection
     /**
      * Create a new resource instance.
      *
-     * @param  mixed  $resource
-     * @param  bool|null  $authorise
-     * @param  class-string<\SkoreLabs\JsonApi\Http\Resources\JsonApiResource>|null  $collects
+     * @param mixed                                                                $resource
+     * @param bool|null                                                            $authorise
+     * @param class-string<\SkoreLabs\JsonApi\Http\Resources\JsonApiResource>|null $collects
+     *
      * @return void
      */
     public function __construct($resource, $authorise = null, $collects = null)

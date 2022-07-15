@@ -47,32 +47,32 @@ class JsonApiAuthorisationTest extends TestCase
     public function test_resource_relationships_are_all_visible_when_bypassed()
     {
         $user = User::create([
-            'name' => 'Ruben',
-            'email' => 'ruben@wonderland.com',
+            'name'     => 'Ruben',
+            'email'    => 'ruben@wonderland.com',
             'password' => 'secret',
         ]);
 
         $firstPost = Post::create([
-            'id' => 5,
-            'title' => 'Test Title',
+            'id'      => 5,
+            'title'   => 'Test Title',
             'user_id' => User::create([
-                'name' => 'Another',
-                'email' => 'another@wonderland.com',
+                'name'     => 'Another',
+                'email'    => 'another@wonderland.com',
                 'password' => 'secret',
             ])->id,
         ]);
 
         $secondPost = Post::create([
-            'id' => 6,
-            'title' => 'Test Title 2',
-            'user_id' => $user->id,
+            'id'        => 6,
+            'title'     => 'Test Title 2',
+            'user_id'   => $user->id,
             'parent_id' => $firstPost->id,
         ]);
 
         $thirdAndMyPost = Post::create([
-            'id' => 7,
-            'title' => 'Test Title 3',
-            'user_id' => $user->id,
+            'id'        => 7,
+            'title'     => 'Test Title 3',
+            'user_id'   => $user->id,
             'parent_id' => $secondPost->id,
         ]);
 
@@ -89,32 +89,32 @@ class JsonApiAuthorisationTest extends TestCase
         $this->markTestSkipped('Not here yet, really need major release!');
 
         $user = User::create([
-            'name' => 'Ruben',
-            'email' => 'ruben@wonderland.com',
+            'name'     => 'Ruben',
+            'email'    => 'ruben@wonderland.com',
             'password' => 'secret',
         ]);
 
         $firstPost = Post::create([
-            'id' => 5,
-            'title' => 'Test Title',
+            'id'      => 5,
+            'title'   => 'Test Title',
             'user_id' => User::create([
-                'name' => 'Another',
-                'email' => 'another@wonderland.com',
+                'name'     => 'Another',
+                'email'    => 'another@wonderland.com',
                 'password' => 'secret',
             ])->id,
         ]);
 
         $secondPost = Post::create([
-            'id' => 6,
-            'title' => 'Test Title 2',
-            'user_id' => $user->id,
+            'id'        => 6,
+            'title'     => 'Test Title 2',
+            'user_id'   => $user->id,
             'parent_id' => $firstPost->id,
         ]);
 
         $thirdAndMyPost = Post::create([
-            'id' => 7,
-            'title' => 'Test Title 3',
-            'user_id' => $user->id,
+            'id'        => 7,
+            'title'     => 'Test Title 3',
+            'user_id'   => $user->id,
             'parent_id' => $secondPost->id,
         ]);
 

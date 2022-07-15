@@ -34,7 +34,7 @@ trait CollectsWithIncludes
             $collectionIncludes
         )->values()->all();
 
-        if (! empty($includesArr)) {
+        if (!empty($includesArr)) {
             Arr::set($this->with, $includedKey, $includesArr);
         }
     }

@@ -17,12 +17,13 @@ trait HasCollections
     /**
      * Get resource based on its zero-based position in the collection.
      *
-     * @param  int  $position
+     * @param int $position
+     *
      * @return \SkoreLabs\JsonApi\Testing\Assert
      */
     public function at(int $position)
     {
-        if (! array_key_exists($position, $this->collection)) {
+        if (!array_key_exists($position, $this->collection)) {
             PHPUnit::fail(sprintf('There is no item at position "%d" on the collection response.', $position));
         }
 
@@ -36,7 +37,8 @@ trait HasCollections
     /**
      * Assert the number of resources that are at the collection.
      *
-     * @param  int  $value
+     * @param int $value
+     *
      * @return $this
      */
     public function count(int $value)
@@ -49,7 +51,8 @@ trait HasCollections
     /**
      * Assert the number of resources that are at the collection (alias of count).
      *
-     * @param  int  $value
+     * @param int $value
+     *
      * @return $this
      */
     public function hasSize(int $value)

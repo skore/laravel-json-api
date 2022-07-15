@@ -45,7 +45,8 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
     /**
      * Create a new resource instance.
      *
-     * @param  mixed  $resource
+     * @param mixed $resource
+     *
      * @return void
      */
     public function __construct($resource)
@@ -68,7 +69,8 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
     /**
      * Specify the query string parameters that should be present on pagination links.
      *
-     * @param  array  $query
+     * @param array $query
+     *
      * @return $this
      */
     public function withQuery(array $query)
@@ -93,7 +95,8 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
     /**
      * Transform the resource into a JSON array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -104,7 +107,8 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
     /**
      * Create an HTTP response that represents the object.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function toResponse($request)
@@ -119,7 +123,8 @@ class ResourceCollection extends JsonApiResource implements Countable, IteratorA
     /**
      * Create a paginate-aware HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     protected function preparePaginatedResponse($request)

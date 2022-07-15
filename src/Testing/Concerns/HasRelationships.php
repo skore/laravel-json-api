@@ -24,7 +24,8 @@ trait HasRelationships
     /**
      * Assert on the related resource by its model instance.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param \Illuminate\Database\Eloquent\Model $model
+     *
      * @return \SkoreLabs\JsonApi\Testing\Assert
      */
     public function atRelation(Model $model)
@@ -39,8 +40,9 @@ trait HasRelationships
     /**
      * Assert that a resource has any relationship and included (optional) by type.
      *
-     * @param  mixed  $name
-     * @param  bool  $withIncluded
+     * @param mixed $name
+     * @param bool  $withIncluded
+     *
      * @return $this
      */
     public function hasAnyRelationships($name, $withIncluded = false)
@@ -65,8 +67,9 @@ trait HasRelationships
     /**
      * Assert that a resource does not have any relationship and included (optional) by type.
      *
-     * @param  mixed  $name
-     * @param  bool  $withIncluded
+     * @param mixed $name
+     * @param bool  $withIncluded
+     *
      * @return $this
      */
     public function hasNotAnyRelationships($name, $withIncluded = false)
@@ -91,8 +94,9 @@ trait HasRelationships
     /**
      * Assert that a resource has any relationship and included (optional) by model instance.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  bool  $withIncluded
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param bool                                $withIncluded
+     *
      * @return $this
      */
     public function hasRelationshipWith(Model $model, $withIncluded = false)
@@ -117,8 +121,9 @@ trait HasRelationships
     /**
      * Assert that a resource does not have any relationship and included (optional) by model instance.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  bool  $withIncluded
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param bool                                $withIncluded
+     *
      * @return $this
      */
     public function hasNotRelationshipWith(Model $model, $withIncluded = false)
@@ -143,9 +148,10 @@ trait HasRelationships
     /**
      * Filter array of resources by a provided identifier.
      *
-     * @param  array  $resources
-     * @param  string  $type
-     * @param  mixed  $id
+     * @param array  $resources
+     * @param string $type
+     * @param mixed  $id
+     *
      * @return array
      */
     protected function filterResources(array $resources, string $type, $id = null)
@@ -158,14 +164,15 @@ trait HasRelationships
     /**
      * Filter provided resource with given identifier.
      *
-     * @param  array  $resource
-     * @param  string  $type
-     * @param  mixed  $id
+     * @param array  $resource
+     * @param string $type
+     * @param mixed  $id
+     *
      * @return bool
      */
     protected function filterResourceWithIdentifier(array $resource, string $type, $id = null)
     {
-        if (is_array($resource) && ! isset($resource['type'])) {
+        if (is_array($resource) && !isset($resource['type'])) {
             return count($this->filterResources($resource, $type, $id)) > 0;
         }
 

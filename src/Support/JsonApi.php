@@ -14,7 +14,8 @@ class JsonApi
     /**
      * Format the input contents to JSON:API.
      *
-     * @param  mixed  $value
+     * @param mixed $value
+     *
      * @return \SkoreLabs\JsonApi\Http\Resources\JsonApiResource
      */
     public static function format($value)
@@ -29,7 +30,8 @@ class JsonApi
     /**
      * Get resource type from a model.
      *
-     * @param  \Illuminate\Database\Eloquent\Model|string  $model
+     * @param \Illuminate\Database\Eloquent\Model|string $model
+     *
      * @return string
      */
     public static function getResourceType($model)

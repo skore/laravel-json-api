@@ -74,26 +74,28 @@ class Assert implements Arrayable
     /**
      * Check if data contains a collection of resources.
      *
-     * @param  array  $data
+     * @param array $data
+     *
      * @return bool
      */
     public static function isCollection(array $data = [])
     {
-        return ! array_key_exists('attributes', $data);
+        return !array_key_exists('attributes', $data);
     }
 
     /**
      * Get the identifier in a pretty printable message by id and type.
      *
-     * @param  mixed  $id
-     * @param  string  $type
+     * @param mixed  $id
+     * @param string $type
+     *
      * @return string
      */
     protected function getIdentifierMessageFor($id = null, string $type = null)
     {
         $messagePrefix = '{ id: %s, type: "%s" }';
 
-        if (! $id && ! $type) {
+        if (!$id && !$type) {
             return sprintf($messagePrefix.' at position %d', (string) $this->id, $this->type, $this->atPosition);
         }
 

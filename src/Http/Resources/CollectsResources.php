@@ -15,7 +15,8 @@ trait CollectsResources
     /**
      * Map the given collection resource into its individual resources.
      *
-     * @param  \Illuminate\Http\Resources\MissingValue|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection  $resource
+     * @param \Illuminate\Http\Resources\MissingValue|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection $resource
+     *
      * @return mixed
      */
     protected function collectResource($resource)
@@ -26,7 +27,7 @@ trait CollectsResources
 
         $collects = $this->collects();
 
-        $this->collection = $collects && ! $resource->first() instanceof $collects
+        $this->collection = $collects && !$resource->first() instanceof $collects
             ? $this->getFiltered($resource, $collects)
             : $resource->toBase();
 
@@ -38,8 +39,9 @@ trait CollectsResources
     /**
      * Get resource collection filtered by authorisation.
      *
-     * @param  mixed  $resource
-     * @param  mixed  $collects
+     * @param mixed $resource
+     * @param mixed $collects
+     *
      * @return \Illuminate\Support\Collection
      */
     protected function getFiltered($resource, $collects)
@@ -52,7 +54,7 @@ trait CollectsResources
             $authoriseKey = 'viewAny';
             $authorise = $this->authorise;
 
-            if (! $this->getAuthorisableConfig($authoriseKey) && gettype($this->authorise) !== 'boolean') {
+            if (!$this->getAuthorisableConfig($authoriseKey) && gettype($this->authorise) !== 'boolean') {
                 $authorise = Gate::check($authoriseKey, class_basename($item));
             }
 
@@ -60,7 +62,7 @@ trait CollectsResources
         });
 
         return $collection->filter(function (JsonApiResource $item) {
-            return ! $item->resource instanceof MissingValue;
+            return !$item->resource instanceof MissingValue;
         });
     }
 
