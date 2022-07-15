@@ -20,7 +20,6 @@
     },
     "require-dev": {
         "ext-json": "*",
-        "laravel/pint": "^1.0.0",
         "nunomaduro/larastan": "^1.0",
         "orchestra/testbench": "^4.0|^6.0|^7.0",
         "phpstan/phpstan": "^1.0",
