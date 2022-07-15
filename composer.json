@@ -20,10 +20,11 @@
     },
     "require-dev": {
         "ext-json": "*",
+        "laravel/pint": "^1.0.0",
         "nunomaduro/larastan": "^1.0",
+        "orchestra/testbench": "^4.0|^6.0|^7.0",
         "phpstan/phpstan": "^1.0",
-        "phpunit/phpunit": "^7.0|^9.0",
-        "orchestra/testbench": "^4.0|^6.0|^7.0"
+        "phpunit/phpunit": "^7.0|^9.0"
     },
     "suggest": {
         "skorelabs/laravel-query-builder": "Allows to include data on your API responses following the JSON:API"

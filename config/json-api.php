@@ -18,7 +18,7 @@ return [
      */
     'authorisable' => [
         'viewAny' => false,
-        'view'    => false,
+        'view' => false,
     ],
 
     /**

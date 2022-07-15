@@ -18,7 +18,7 @@ abstract class TestCase extends Orchestra
     {
         config([
             'json-api.authorisable' => [
-                'view'    => true,
+                'view' => true,
                 'viewAny' => true,
             ],
         ]);

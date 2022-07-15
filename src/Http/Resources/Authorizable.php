@@ -17,15 +17,14 @@ trait Authorizable
     /**
      * Authorize to view this resource.
      *
-     * @param mixed $resource
-     *
+     * @param  mixed  $resource
      * @return void
      */
     protected function authorize($resource)
     {
         $this->authorise = $this->authorise
             ?: $this->getAuthorisableConfig('view')
-            ?: !$resource instanceof Model
+            ?: ! $resource instanceof Model
             ?: Gate::check('view', $resource);
 
         return $this->authorise;
