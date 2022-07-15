@@ -35,7 +35,9 @@
         }
     },
     "autoload-dev": {
-        "SkoreLabs\\JsonApi\\Tests\\": "tests"
+        "psr-4": {
+            "SkoreLabs\\JsonApi\\Tests\\": "tests"
+        }
     },
     "config": {
         "sort-packages": true
