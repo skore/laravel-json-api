@@ -1,3 +1,7 @@
+::: danger
+**This package won't be receiving any feature updates.** If you didn't see, you should check [our next version of this package clicking here](https://github.com/open-southeners/laravel-apiable).
+:::
+
 # Implementations
 
 To complement this package functionality you'll want to add one of these packages we described here.

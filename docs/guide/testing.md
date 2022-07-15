@@ -1,3 +1,7 @@
+::: danger
+**This package won't be receiving any feature updates.** If you didn't see, you should check [our next version of this package clicking here](https://github.com/open-southeners/laravel-apiable).
+:::
+
 # Testing
 
 This package also have some testing utilities built on top of PHPUnit and Laravel's framework assertions.

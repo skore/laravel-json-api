@@ -1,5 +1,5 @@
-::: tip
-We strongly recommend to use another package to manage the requests filtering, sorting, appending, etc. Check [Implementations](implementations.md).
+::: danger
+**This package won't be receiving any feature updates.** If you didn't see, you should check [our next version of this package clicking here](https://github.com/open-southeners/laravel-apiable).
 :::
 
 # Usage

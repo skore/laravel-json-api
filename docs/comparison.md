@@ -1,3 +1,7 @@
+::: danger
+**This package won't be receiving any feature updates.** If you didn't see, you should check [our next version of this package clicking here](https://github.com/open-southeners/laravel-apiable).
+:::
+
 # Comparison
 
 Of course there are lot more libraries out there for Laravel and even more generic (for PHP) that we can also use instead of this one.
