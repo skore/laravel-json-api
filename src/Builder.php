@@ -17,6 +17,8 @@ class Builder
          * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
          */
         return function ($perPage = null, $columns = ['*']) {
+            $pageNumberKey = 'page[number]';
+            $pageNumber = (int) request('page.number');
             $perPage = $perPage ?: $this->model->getPerPage();
             $clientPerPage = (int) request('page.size', config('json-api.pagination.default_size'));
 
@@ -24,7 +26,11 @@ class Builder
                 $perPage = $clientPerPage;
             }
 
-            return $this->paginate($perPage, $columns, 'page[number]', (int) request('page.number'));
+            if (class_exists("Hammerstone\FastPaginate\FastPaginate")) {
+                return $this->fastPaginate($perPage, $columns, $pageNumberKey, $pageNumber);
+            }
+
+            return $this->paginate($perPage, $columns, $pageNumberKey, $pageNumber);
         };
     }
 }

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.8] - 2022-08-26
+
+### Added
+
+- Support for [hammerstone/fast-paginate](https://github.com/hammerstonedev/fast-paginate)
+
 ## [3.2.7] - 2022-07-15
 
 ### Fixed
