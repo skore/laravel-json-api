@@ -26,7 +26,7 @@ class Builder
                 $perPage = $clientPerPage;
             }
 
-            if (class_exists("Hammerstone\FastPaginate\FastPaginate")) {
+            if (class_exists('Hammerstone\FastPaginate\FastPaginate')) {
                 return $this->fastPaginate($perPage, $columns, $pageNumberKey, $pageNumber);
             }
 
