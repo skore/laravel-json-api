@@ -26,7 +26,7 @@
         "phpunit/phpunit": "^7.0|^9.0"
     },
     "suggest": {
-        "hammerstone/fast-paginate": "Improves jsonApiPaginate method performance (SQL database query pagination)",
+        "hammerstone/fast-paginate": "Improves jsonPaginate method performance (SQL database query pagination)",
         "skorelabs/laravel-query-builder": "Allows to include data on your API responses following the JSON:API"
     },
     "autoload": {
